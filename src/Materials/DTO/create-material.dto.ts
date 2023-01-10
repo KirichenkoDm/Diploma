@@ -4,7 +4,7 @@ export class CreateMaterialDto {
     @IsArray()
     @ArrayUnique()
     @IsNotEmpty()
-    readonly matherials: Array<string>;
+    readonly materials: Array<string>;
 
     @IsString()
     @IsNotEmpty()

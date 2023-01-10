@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { contains } from 'class-validator';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './DTO/create-user.dto';
 import { UpdateUserDto } from './DTO/update-user.dto';
@@ -41,11 +42,11 @@ export class UserService {
         return deletedUser;
     }
 
-    async getAllCourseUsers(courseId: string, role: Roles): Promise<IUser[]> {
-        const studentsData = await this.userModel.find() //courses array contains courseId and role
+    async getAllCourseUsers(courseId: string, userRole: Roles): Promise<IUser[]> {
+        const studentsData = await this.userModel.find({courses: { "$in" : [courseId] }, role: userRole});
 
         if(!studentsData || studentsData.length == 0) {
-            throw new NotFoundException(`Course "#${courseId} not found or has no #${role}"`);
+            throw new NotFoundException(`Course "#${courseId}" not found or has no #${userRole}"`);
         }
         return studentsData;
     }

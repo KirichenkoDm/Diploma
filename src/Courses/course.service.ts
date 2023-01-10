@@ -33,12 +33,21 @@ export class CourseService {
         return existingCourse;
     }
 
-    async getCoursesWithTopic (topic: Topics): Promise<ICourse[]> {
-        const  courseData = await this.courseModel.find() //topics equality
+    async getCoursesWithTopic (getTopic: Topics): Promise<ICourse[]> {
+        const  courseData = await this.courseModel.find({topic: getTopic});
 
         if (!courseData || courseData.length == 0) {
-            throw new NotFoundException(`Courses with #${topic} topic not found`);
+            throw new NotFoundException(`Courses with #${getTopic} topic not found`);
         }
         return courseData;
+    }
+
+    async deleteCourse (id: string): Promise<ICourse> {
+        const deletedCourse = await this.courseModel.findByIdAndDelete(id);
+
+        if(!deletedCourse) {
+            throw new NotFoundException(`Course "#${id}" not found`);
+        }
+        return deletedCourse;
     }
 }
