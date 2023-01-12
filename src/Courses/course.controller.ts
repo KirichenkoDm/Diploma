@@ -5,7 +5,7 @@ import { UpdateCourseDto } from './DTO/update-corse.dto';
 import { Topics } from './topics';
 
 @Controller('course') 
-export class courseController {
+export class CourseController {
     constructor(private readonly courseService: CourseService) {}
 
     @Post()
@@ -61,13 +61,13 @@ export class courseController {
         }
     }
 
-    @Get('/:topic')
+    @Get('topic/:topic')
     async getCoursesByTopic (
         @Res() response,
         @Param('topic') courseTopic: Topics,
     ) {
         try {
-            const existingCourse = await this.courseService.getCoursesWithTopic(courseTopic);
+            const existingCourse = await this.courseService.getCoursesByTopic(courseTopic);
             return response.status(HttpStatus.OK).json({
                 message: 'All courses found succesfully',
                 existingCourse,

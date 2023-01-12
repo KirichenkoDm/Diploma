@@ -3,7 +3,7 @@ import { CreateMaterialDto } from './DTO/create-material.dto';
 import { MaterialService } from './material.service';
 
 @Controller('material')
-export class materialController {
+export class MaterialController {
     constructor(private readonly materialService: MaterialService) {}
 
     @Post()

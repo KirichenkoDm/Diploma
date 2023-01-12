@@ -5,7 +5,7 @@ import { Roles } from './Roles';
 import { UserService } from './user.service';
 
 @Controller('user')
-export class userController {
+export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post()
@@ -93,4 +93,6 @@ export class userController {
             return response.status(error.status).json(error.response);
         }
     }
+
+
 }

@@ -12,7 +12,7 @@ export class CourseService {
 
     async createCourse (createCouseDto: CreateCourseDto): Promise<ICourse> {
         const newCourse = await new this.courseModel(createCouseDto); 
-        return newCourse;
+        return newCourse.save();
     }
 
     async updateCourse (id: string, updateCourseDto: UpdateCourseDto): Promise<ICourse> {
@@ -33,7 +33,7 @@ export class CourseService {
         return existingCourse;
     }
 
-    async getCoursesWithTopic (getTopic: Topics): Promise<ICourse[]> {
+    async getCoursesByTopic (getTopic: Topics): Promise<ICourse[]> {
         const  courseData = await this.courseModel.find({topic: getTopic});
 
         if (!courseData || courseData.length == 0) {
