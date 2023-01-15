@@ -9,11 +9,11 @@ export class CreateUserDto {
 
     @IsString()
     @IsNotEmpty()
-    readonly password: string;
+    password: string;
 
     @IsString()
     @IsNotEmpty()
-    readonly salt: string;
+    salt: string;
 
     @IsString()
     @IsNotEmpty()
