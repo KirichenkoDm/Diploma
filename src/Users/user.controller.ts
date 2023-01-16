@@ -45,6 +45,23 @@ export class UserController {
         }
     }
 
+    @Get()
+    async authoriseUser (
+        @Res() response,
+        @Param('email') email: string,
+        @Param('password') password: string
+    ) {
+        try {
+            const existingUser = await this.userService.authoriseUser(email, password);
+            return response.status(HttpStatus.OK).json({
+                message: 'Correct password',
+                existingUser,
+            });
+        } catch (error) {
+            return response.status(error.status).json(error.response);
+        }
+    }
+
     @Get('/:id')
     async getUser (
         @Res() response, 
@@ -65,10 +82,10 @@ export class UserController {
     async getAllCourseUsers(
             @Res() response,
             @Param('id') courseId: string,
-            @Param('role') userRole: Roles,
+            @Param('role') role: Roles,
     ) { 
         try {
-            const userData = await this.userService.getAllCourseUsers(courseId, userRole);
+            const userData = await this.userService.getAllCourseUsers(courseId, role);
             return response.status(HttpStatus.OK).json({
                 message: 'Users data found succesfully',
                 userData,
