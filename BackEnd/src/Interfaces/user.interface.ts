@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Roles } from './Roles';
+import { Roles } from '../Tools/enums';
 
 
 

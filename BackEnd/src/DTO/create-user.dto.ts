@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, MaxLength,  } from "class-validator";
-import { Roles } from "../Roles";
+import { Roles } from "../Tools/enums";
 
 
 export class CreateUserDto {

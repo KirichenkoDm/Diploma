@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Topics } from './topics';
+import { Topics } from '../Tools/enums';
 
 
 export interface ICourse extends Document {

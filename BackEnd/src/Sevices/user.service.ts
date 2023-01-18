@@ -2,24 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ForbiddenException } from '@nestjs/common/exceptions';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserDto } from './DTO/create-user.dto';
-import { UpdateUserDto } from './DTO/update-user.dto';
-import { Roles } from './Roles';
-import { IUser } from './user.interface';
+import { CreateUserDto } from '../DTO/create-user.dto';
+import { UpdateUserDto } from '../DTO/update-user.dto';
+import { Roles } from '../Tools/enums';
+import { IUser } from '../Interfaces/user.interface';
+import { HashPassword } from 'src/Tools/utils';
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
-async function HashPassword(newUser: CreateUserDto|UpdateUserDto): Promise<CreateUserDto> {
-    return bcrypt.genSalt(saltRounds)
-    .then(salt => {
-        newUser.salt = salt;
-        return bcrypt.hash(newUser.password, salt)
-    })
-    .then(hash => {
-        newUser.password = hash;
-        return newUser;
-    })
-}
 
 @Injectable()
 export class UserService {

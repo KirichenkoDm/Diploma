@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { scheduler } from "timers/promises";
 
 @Schema()
 export class matherial {

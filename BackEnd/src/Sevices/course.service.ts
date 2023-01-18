@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ICourse } from './course.interface';
-import { CreateCourseDto } from './DTO/create-course.dto';
-import { UpdateCourseDto } from './DTO/update-corse.dto';
-import { Topics } from './topics';
+import { ICourse } from '../Interfaces/course.interface';
+import { CreateCourseDto } from '../DTO/create-course.dto';
+import { UpdateCourseDto } from '../DTO/update-corse.dto';
+import { Topics } from '../Tools/enums';
 
 @Injectable()
 export class CourseService {

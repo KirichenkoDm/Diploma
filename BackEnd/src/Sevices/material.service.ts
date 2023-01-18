@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateMaterialDto } from './DTO/create-material.dto';
-import { IMaterial } from './material.interface';
+import { CreateMaterialDto } from '../DTO/create-material.dto';
+import { IMaterial } from '../Interfaces/material.interface';
 
 @Injectable()
 export class MaterialService {

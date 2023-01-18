@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Topics } from "./topics";
+import { Topics } from "../Tools/enums";
 
 @Schema()
 export class course {
