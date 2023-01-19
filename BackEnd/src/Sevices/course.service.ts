@@ -41,7 +41,8 @@ export class CourseService {
         const query = MakeQuerryAgregateCourse(agregateObject);
         const courseData = await this.courseModel.find(query)
         .sort({$natural: -1})
-        .limit(agregateObject.page*10);
+        .skip(agregateObject.page*10)
+        .limit(10);
 
         if (!courseData || courseData.length == 0) {
             throw new NotFoundException('Courses which matches query not found');
