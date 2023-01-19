@@ -4,21 +4,21 @@ import { Topics } from "../Tools/enums";
 export class CreateCourseDto {
     @IsBoolean()
     @IsNotEmpty()
-    readonly hidden: boolean;
+    hidden: boolean;
 
     @IsString()
     @MaxLength(30)
     @IsNotEmpty()
-    readonly name: string;
+    name: string;
 
     @IsNotEmpty()
-    readonly topic: Topics;
-
-    @IsString()
-    @IsNotEmpty()
-    readonly description: string;
+    topic: Topics;
 
     @IsString()
     @IsNotEmpty()
-    readonly matherials: string;
+    description: string;
+
+    @IsString()
+    @IsNotEmpty()
+    matherials: string;
 }

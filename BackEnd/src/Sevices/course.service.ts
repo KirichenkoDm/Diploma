@@ -4,7 +4,8 @@ import { Model } from 'mongoose';
 import { ICourse } from '../Interfaces/course.interface';
 import { CreateCourseDto } from '../DTO/create-course.dto';
 import { UpdateCourseDto } from '../DTO/update-corse.dto';
-import { Topics } from '../Tools/enums';
+import { AgregateCourseObject } from '../Tools/interfaces';
+import { MakeQuerryAgregateCourse } from 'src/Tools/utils';
 
 @Injectable()
 export class CourseService {
@@ -16,7 +17,10 @@ export class CourseService {
     }
 
     async updateCourse (id: string, updateCourseDto: UpdateCourseDto): Promise<ICourse> {
-        const updatedCourse = await this.courseModel.findByIdAndUpdate(id, updateCourseDto);
+        const updatedCourse = await this.courseModel.findByIdAndUpdate(
+            id,
+            updateCourseDto
+        );
 
         if (!updatedCourse) {
             throw new NotFoundException(`Course "#${id}" not found`);
@@ -33,11 +37,14 @@ export class CourseService {
         return existingCourse;
     }
 
-    async getCoursesByTopic (getTopic: Topics): Promise<ICourse[]> {
-        const  courseData = await this.courseModel.find({topic: getTopic});
+    async getCoursesByQuery (agregateObject: AgregateCourseObject): Promise<ICourse[]> {
+        const query = MakeQuerryAgregateCourse(agregateObject);
+        const courseData = await this.courseModel.find(query)
+        .sort({$natural: -1})
+        .limit(agregateObject.page*10);
 
         if (!courseData || courseData.length == 0) {
-            throw new NotFoundException(`Courses with #${getTopic} topic not found`);
+            throw new NotFoundException('Courses which matches query not found');
         }
         return courseData;
     }

@@ -4,11 +4,11 @@ import { Roles } from '../Tools/enums';
 
 
 export interface IUser extends Document {
-    readonly email: string;
-    readonly password: string;
-    readonly salt: string;
-    readonly name: string;
-    readonly surname: string;
-    readonly role: Roles;
-    readonly courses: Array<string>;
+    email:      string;
+    password:   string;
+    salt:       string;
+    name:       string;
+    surname:    string;
+    role:       Roles;
+    courses:    Array<string>;
 }

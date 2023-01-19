@@ -5,7 +5,7 @@ import { Roles } from "../Tools/enums";
 export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
-    readonly email: string;
+    email: string;
 
     @IsString()
     @IsNotEmpty()
@@ -18,15 +18,15 @@ export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
     @MaxLength(30)
-    readonly name: string;
+    name: string;
 
     @IsString()
     @IsNotEmpty()
     @MaxLength(30)
-    readonly surname: string;
+    surname: string;
 
     @IsNotEmpty()
-    readonly role: Roles;
+    role: Roles;
 
-    readonly courses: Array<string>;
+    courses: Array<string>;
 }

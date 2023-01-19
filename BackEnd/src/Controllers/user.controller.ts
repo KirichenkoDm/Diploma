@@ -52,7 +52,7 @@ export class UserController {
         @Param('password') password: string
     ) {
         try {
-            const existingUser = await this.userService.authoriseUser(email, password);
+            const existingUser = await this.userService.signIn(email, password);
             return response.status(HttpStatus.OK).json({
                 message: 'Correct password',
                 existingUser,

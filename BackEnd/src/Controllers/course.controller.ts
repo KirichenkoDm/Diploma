@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { CourseService } from '../Sevices/course.service';
 import { CreateCourseDto } from '../DTO/create-course.dto';
 import { UpdateCourseDto } from '../DTO/update-corse.dto';
 import { Topics } from '../Tools/enums';
+import { AgregateCourseObject } from 'src/Tools/interfaces';
 
 @Controller('course') 
 export class CourseController {
@@ -61,13 +62,13 @@ export class CourseController {
         }
     }
 
-    @Get('topic/:topic')
-    async getCoursesByTopic (
+    @Get('search/')
+    async getCoursesByQuery (
         @Res() response,
-        @Param('topic') courseTopic: Topics,
+        @Query() agregateObject: AgregateCourseObject,
     ) {
         try {
-            const existingCourse = await this.courseService.getCoursesByTopic(courseTopic);
+            const existingCourse = await this.courseService.getCoursesByQuery(agregateObject);
             return response.status(HttpStatus.OK).json({
                 message: 'All courses found succesfully',
                 existingCourse,

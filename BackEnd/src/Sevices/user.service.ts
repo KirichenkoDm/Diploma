@@ -16,30 +16,47 @@ export class UserService {
     constructor(@InjectModel('User') private userModel:Model<IUser>) {} 
 
     async createUser (createUserDto: CreateUserDto): Promise<IUser> {
-        createUserDto = await HashPassword(createUserDto);
+        createUserDto = await HashPassword(createUserDto) as CreateUserDto;
         const newUser = await new this.userModel(createUserDto);
-        //
         return newUser.save();
     }
 
     async updateUser (id: string, updateUserDto: UpdateUserDto): Promise<IUser> {
         if(updateUserDto.password) {
-            updateUserDto = await HashPassword(updateUserDto);
+            updateUserDto = await HashPassword(updateUserDto) as UpdateUserDto;
         }
-        const updatedUser = await this.userModel.findByIdAndUpdate(id, updateUserDto, {new: true});
+
+        let addCoursesArray = {};
+        let deleteCoursesArray = {};
+        if (updateUserDto.addCourses && updateUserDto.addCourses.length != 0) {
+            addCoursesArray = { $addToSet: { "courses" : updateUserDto.addCourses }};
+        }
+        if(updateUserDto.deleteCourses && updateUserDto.addCourses.length != 0) {
+            deleteCoursesArray = { $pull: { "courses": updateUserDto.deleteCourses }}
+        }
+
+        const updatedUser = await this.userModel.findByIdAndUpdate(
+            id,
+            {
+                updateUserDto,
+                addCoursesArray,
+                deleteCoursesArray
+            },
+            {new: true}
+        );
         if (!updatedUser) {
             throw new NotFoundException(`User "#${id}" not found`);
         }
         return updatedUser;
     }
 
-    async authoriseUser (email: string, password: string) {
-        const existingUser = await this.userModel.find({email: email});
+    async signIn (email: string, password: string) {
+        const existingUser = await this.userModel.findOne({email: email});
 
         if (!existingUser) {
             throw new NotFoundException(`User with email "${email}" not found`);
         }
-        if("password" in existingUser && bcrypt.compare(password, existingUser.password)) {
+        if(bcrypt.compare(password, existingUser.password)) {
             return existingUser;
         }
         throw new ForbiddenException('Wrong password');
