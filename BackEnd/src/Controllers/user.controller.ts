@@ -3,11 +3,14 @@ import { CreateUserDto } from '../DTO/create-user.dto';
 import { UpdateUserDto } from '../DTO/update-user.dto';
 import { Roles } from '../Tools/enums';
 import { UserService } from '../Sevices/user.service';
+import { Public } from '../Tools/decorators'
+
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
+    @Public()
     @Post()
     async createUser(
         @Res() response, 
@@ -45,14 +48,15 @@ export class UserController {
         }
     }
 
+    //remake?
     @Get()
-    async authoriseUser (
+    async signIn (
         @Res() response,
         @Param('email') email: string,
         @Param('password') password: string
     ) {
         try {
-            const existingUser = await this.userService.signIn(email, password);
+            const existingUser = await this.userService.signIn(email);
             return response.status(HttpStatus.OK).json({
                 message: 'Correct password',
                 existingUser,
@@ -62,6 +66,7 @@ export class UserController {
         }
     }
 
+    
     @Get('/:id')
     async getUser (
         @Res() response, 
