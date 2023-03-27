@@ -2,11 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { RegistrationForm } from './Components/CS-registration-form/cs-registration-form';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <RegistrationForm/>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
@@ -50,7 +52,7 @@ function App() {
             React Redux
           </a>
         </span>
-      </header>
+      </header> */}
     </div>
   );
 }
