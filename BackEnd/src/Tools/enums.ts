@@ -1,13 +1,13 @@
 export enum Roles {
-    admin,
-    student,
-    teacher,    
+  admin,
+  student,
+  teacher,
 }
 
 export enum Topics {
-    buisness,
-    marketing,
-    art,
-    IT,
-    selfDevelopment,
+  buisness,
+  marketing,
+  art,
+  IT,
+  selfDevelopment,
 }

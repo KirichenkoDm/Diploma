@@ -1,8 +1,8 @@
-import { IsArray, IsNotEmpty, IsString, ArrayUnique } from "class-validator";
+import { IsArray, IsNotEmpty, ArrayUnique } from 'class-validator';
 
 export class CreateMaterialDto {
-    @IsArray()
-    @ArrayUnique()
-    @IsNotEmpty()
-    materials: Array<string>;
+  @IsArray()
+  @ArrayUnique()
+  @IsNotEmpty()
+  materials: Array<string>;
 }

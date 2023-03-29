@@ -9,53 +9,59 @@ import { MakeQuerryAgregateCourse } from 'src/Tools/utils';
 
 @Injectable()
 export class CourseService {
-    constructor (@InjectModel('Course') private courseModel: Model<ICourse>) {}
+  constructor(@InjectModel('Course') private courseModel: Model<ICourse>) {}
 
-    async createCourse (createCouseDto: CreateCourseDto): Promise<ICourse> {
-        const newCourse = await new this.courseModel(createCouseDto); 
-        return newCourse.save();
+  async createCourse(createCouseDto: CreateCourseDto): Promise<ICourse> {
+    const newCourse = await new this.courseModel(createCouseDto);
+    return newCourse.save();
+  }
+
+  async updateCourse(
+    id: string,
+    updateCourseDto: UpdateCourseDto,
+  ): Promise<ICourse> {
+    const updatedCourse = await this.courseModel.findByIdAndUpdate(
+      id,
+      updateCourseDto,
+    );
+
+    if (!updatedCourse) {
+      throw new NotFoundException(`Course "#${id}" not found`);
     }
+    return updatedCourse;
+  }
 
-    async updateCourse (id: string, updateCourseDto: UpdateCourseDto): Promise<ICourse> {
-        const updatedCourse = await this.courseModel.findByIdAndUpdate(
-            id,
-            updateCourseDto
-        );
+  async getCourseById(id: string): Promise<ICourse> {
+    const existingCourse = await this.courseModel.findById(id);
 
-        if (!updatedCourse) {
-            throw new NotFoundException(`Course "#${id}" not found`);
-        }
-        return updatedCourse
+    if (!existingCourse) {
+      throw new NotFoundException(`Course "#${id}" not found`);
     }
+    return existingCourse;
+  }
 
-    async getCourseById (id: string): Promise<ICourse> {
-        const existingCourse = await this.courseModel.findById(id);
+  async getCoursesByQuery(
+    agregateObject: AgregateCourseObject,
+  ): Promise<ICourse[]> {
+    const query = MakeQuerryAgregateCourse(agregateObject);
+    const courseData = await this.courseModel
+      .find(query)
+      .sort({ $natural: -1 })
+      .skip(agregateObject.page * 10)
+      .limit(10);
 
-        if (!existingCourse) {
-            throw new NotFoundException(`Course "#${id}" not found`);
-        }
-        return existingCourse;
+    if (!courseData || courseData.length == 0) {
+      throw new NotFoundException('Courses which matches query not found');
     }
+    return courseData;
+  }
 
-    async getCoursesByQuery (agregateObject: AgregateCourseObject): Promise<ICourse[]> {
-        const query = MakeQuerryAgregateCourse(agregateObject);
-        const courseData = await this.courseModel.find(query)
-        .sort({$natural: -1})
-        .skip(agregateObject.page*10)
-        .limit(10);
+  async deleteCourse(id: string): Promise<ICourse> {
+    const deletedCourse = await this.courseModel.findByIdAndDelete(id);
 
-        if (!courseData || courseData.length == 0) {
-            throw new NotFoundException('Courses which matches query not found');
-        }
-        return courseData;
+    if (!deletedCourse) {
+      throw new NotFoundException(`Course "#${id}" not found`);
     }
-
-    async deleteCourse (id: string): Promise<ICourse> {
-        const deletedCourse = await this.courseModel.findByIdAndDelete(id);
-
-        if(!deletedCourse) {
-            throw new NotFoundException(`Course "#${id}" not found`);
-        }
-        return deletedCourse;
-    }
+    return deletedCourse;
+  }
 }

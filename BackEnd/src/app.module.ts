@@ -8,10 +8,12 @@ import { MaterialModule } from './Modules/material.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/', { dbName: 'courseProjectDb' }),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/', {
+      dbName: 'courseProjectDb',
+    }),
     UserModule,
     CourseModule,
-    MaterialModule
+    MaterialModule,
   ],
   controllers: [AppController],
   providers: [AppService],

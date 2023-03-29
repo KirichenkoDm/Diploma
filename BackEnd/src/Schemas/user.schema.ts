@@ -1,54 +1,55 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Roles } from '../Tools/enums';
 //const bcrypt = require('bcrypt');
 
 @Schema()
 export class user {
-    @Prop()
-    email: {
-        type: string,
-        required: true,
-        unique: true,
-    };
+  @Prop()
+  email: {
+    type: string;
+    required: true;
+    unique: true;
+  };
 
-    @Prop()
-    password: {
-        type: string,
-        required: true,
-    };
+  @Prop()
+  password: {
+    type: string;
+    required: true;
+  };
 
-    @Prop()
-    salt: {
-        type: string,
-        required: true,
-    };
+  @Prop()
+  salt: {
+    type: string;
+    required: true;
+  };
 
-    @Prop()
-    name: {
-        type: string,
-        required: true,
-        maxLength: 30,
-    };
+  @Prop()
+  name: {
+    type: string;
+    required: true;
+    maxLength: 30;
+  };
 
-    @Prop()
-    surname: {
-        type: string,
-        required: true,
-        maxLength: 30,
-    };
+  @Prop()
+  surname: {
+    type: string;
+    required: true;
+    maxLength: 30;
+  };
 
-    @Prop() 
-    role: {
-        type: number,
-        enum: Roles,
-        required: true,
-    };
+  @Prop()
+  role: {
+    type: number;
+    enum: Roles;
+    required: true;
+  };
 
-    @Prop()
-    courses: [{
-        type: string,
-
-    }];
+  @Prop()
+  courses: [
+    {
+      type: string;
+    },
+  ];
 }
 
 export const userSchema = SchemaFactory.createForClass(user);
