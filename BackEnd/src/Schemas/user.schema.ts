@@ -4,52 +4,47 @@ import { Roles } from '../Tools/enums';
 
 @Schema()
 export class user {
-  @Prop()
-  email: {
-    type: string;
-    required: true;
-    unique: true;
-  };
+  @Prop({
+    type: String,
+    required: true,
+    unique: true,
+  })
+  email: string;
 
-  @Prop()
-  password: {
-    type: string;
-    required: true;
-  };
+  @Prop({
+    type: String,
+    required: true,
+  })
+  password: string;
 
-  @Prop()
-  salt: {
-    type: string;
-    required: true;
-  };
+  @Prop({
+    type: String,
+    required: true,
+  })
+  salt: string;
 
-  @Prop()
-  name: {
-    type: string;
-    required: true;
-    maxLength: 30;
-  };
+  @Prop({
+    type: String,
+    required: true,
+    maxLength: 30,
+  })
+  name: string;
 
-  @Prop()
-  surname: {
-    type: string;
-    required: true;
-    maxLength: 30;
-  };
+  @Prop({
+    type: String,
+    required: true,
+    maxLength: 30,
+  })
+  surname: string;
 
-  @Prop()
-  role: {
-    type: number;
-    enum: Roles;
-    required: true;
-  };
+  @Prop({
+    enum: Roles,
+    required: true,
+  })
+  role: Roles;
 
-  @Prop()
-  courses: [
-    {
-      type: string;
-    },
-  ];
+  @Prop([String])
+  courses: string[];
 }
 
 export const userSchema = SchemaFactory.createForClass(user);

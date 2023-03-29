@@ -3,38 +3,38 @@ import { Topics } from '../Tools/enums';
 
 @Schema()
 export class course {
-  @Prop()
-  hidden: {
-    type: boolean;
-    required: true;
-  };
+  @Prop({
+    type: Boolean,
+    required: true,
+  })
+  hidden: boolean;
 
-  @Prop()
-  name: {
-    type: string;
-    required: true;
-    maxLength: 30;
-  };
+  @Prop({
+    type: String,
+    required: true,
+    maxLength: 30,
+  })
+  name: string;
 
-  @Prop()
-  topic: {
-    type: number;
-    enum: Topics;
-    required: true;
-  };
+  @Prop({
+    type: Number,
+    enum: Topics,
+    required: true,
+  })
+  topic: number;
 
-  @Prop()
-  description: {
-    type: string;
-    required: true;
-  };
+  @Prop({
+    type: String,
+    required: true,
+  })
+  description: string;
 
-  @Prop()
-  matherials: {
-    type: string;
-    required: true;
-    unique: true;
-  };
+  @Prop({
+    type: String,
+    required: true,
+    unique: true,
+  })
+  matherials: string;
 }
 
 export const courseSchema = SchemaFactory.createForClass(course);
