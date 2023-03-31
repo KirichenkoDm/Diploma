@@ -12,7 +12,7 @@ type Props = {
 export const InputRadioRole = (props: Props) => {
   const [field] = useField({ ...props });
   return (<>
-    <input type="radio" {...field} name={props.name} value={Roles[props.value]} checked={props.checked}/>
+    <input type="radio" {...field} name={props.name} value={props.value} checked={props.checked}/>
     {props.value}
   </>);
 };

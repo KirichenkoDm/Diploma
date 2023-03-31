@@ -6,12 +6,19 @@ import { RegistrationFormData } from "../../Utils/formDataTypes";
 import { Formik} from 'formik';
 import { InputText } from "../CS-input-text/cs-input-text";
 import { InputRadioRole } from "../CS-Input-radio/cs-input-radio";
+import { useAppDispatch, useAppSelector } from "../../Utils/hooks";
+import { selectCurrentUser } from "../../Utils/currentUserSlice";
 
 const validate = ValidateHandler;
 
 export const RegistrationForm: FC = () => {
-
+  const currentUser = useAppSelector(selectCurrentUser)
+  const dispatch = useAppDispatch();
   return (
+    <>
+    <pre>
+      {JSON.stringify(currentUser, null, 2)}
+    </pre>
     <StyledRegistrationForm>
       <Formik
         initialValues= {{
@@ -23,7 +30,7 @@ export const RegistrationForm: FC = () => {
         } as RegistrationFormData}
         validate = {validate}
         onSubmit = {(values) => {
-          SubmitHandler(values);
+          SubmitHandler(values, dispatch);
         }}
       >
         { formik  => (
@@ -70,5 +77,6 @@ export const RegistrationForm: FC = () => {
         )}
       </Formik>
     </StyledRegistrationForm>
+    </>
   )
 }

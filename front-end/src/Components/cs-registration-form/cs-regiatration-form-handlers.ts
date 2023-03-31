@@ -1,7 +1,7 @@
 import { FormikErrors } from "formik";
+import { logIn } from "../../Utils/currentUserSlice";
 import { FormError } from "../../Utils/errorDataTypes";
 import { RegistrationFormData } from "../../Utils/formDataTypes";
-
 const strPattern = /^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -35,6 +35,12 @@ export const ValidateHandler = (formData: RegistrationFormData):FormikErrors<For
   return errors;
 }
 
-export const SubmitHandler = (formData:RegistrationFormData) => {
-  console.log(formData)
+export const SubmitHandler = (formData:RegistrationFormData, dispatch: any) => {
+  const action = {
+    email: formData.email,
+    name: formData.name,
+    surname: formData.surname,
+    role: formData.role,
+  }
+  dispatch(logIn(action))
 }

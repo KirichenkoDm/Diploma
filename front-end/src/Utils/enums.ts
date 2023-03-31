@@ -7,7 +7,8 @@ export enum Topics {
 }
 
 export enum Roles {
-  admin,
-  student,
-  teacher,    
+  admin = "admin",
+  student = "student",
+  teacher = "teacher",
+  guest = "guest",    
 }
