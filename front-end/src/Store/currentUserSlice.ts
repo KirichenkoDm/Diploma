@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Roles } from "./enums";
+import { Roles } from "../Utils/enums";
 import { RootState } from "./store";
 
 interface currentUser {

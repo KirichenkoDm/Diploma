@@ -1,23 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./Utils/store";
-import App from "./App";
+import { store } from "./Store/store";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import RegistrationPage from "./Pages/cs-registration-page";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App/>
-  },
-  {
-    path: "/register",
-    element: <RegistrationPage/>
-  }
-]);
+import { RouterProvider } from "react-router-dom";
+import { rootRouter } from "./Routers/root";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -25,8 +13,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router}/>
-      {/* <App /> */}
+      <RouterProvider router={rootRouter}/>
     </Provider>
   </React.StrictMode>
 );

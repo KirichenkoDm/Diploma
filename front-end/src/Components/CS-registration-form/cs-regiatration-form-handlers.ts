@@ -1,5 +1,5 @@
 import { FormikErrors } from "formik";
-import { logIn } from "../../Utils/currentUserSlice";
+import { logIn } from "../../Store/currentUserSlice";
 import { FormError } from "../../Utils/errorDataTypes";
 import { RegistrationFormData } from "../../Utils/formDataTypes";
 const strPattern = /^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
