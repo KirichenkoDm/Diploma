@@ -7,14 +7,16 @@ export const InputText = (props: FieldHookConfig<any>) => {
 
   return (
     <StyledInputText>
-      <input {...field} 
-        placeholder={props.placeholder} 
-        type={props.type? props.type : "text"}
+      <input {...field}
+        placeholder={props.placeholder}
+        type={props.type ? props.type : "text"}
         id={props.id}
       />
-      {meta.touched && meta.error ? (
-        <p color="red">{meta.error}</p>
-      ): null }
+      {meta.touched && meta.error
+        ? (
+          <p color="red">{meta.error}</p>
+        )
+        : null }
     </StyledInputText>
   );
-}
+};

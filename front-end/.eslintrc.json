@@ -1,23 +1,45 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "standard"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "standard-with-typescript",
-				"prettier"
-    ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-    }
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "ignorePatterns": ["*.css", "*.ico", "*.html", "*.json"],
+  "rules": {
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "generator-star-spacing": ["error", "after"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "space-before-function-paren": ["error", "never"],
+    "prefer-promise-reject-errors": "off",
+    "array-callback-return": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-key": "off",
+    "react/no-unescaped-entities": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "no-useless-escape": "off",
+    "prefer-regex-literals": "off",
+    "quote-props": "off",
+    "max-len": ["error", { "code": 120}],
+    "operator-linebreak": ["error", "before"],
+    "no-mixed-operators": "off"
+  }
 }

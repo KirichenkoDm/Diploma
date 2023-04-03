@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
-import { RegistrationForm } from './Components/CS-registration-form/cs-registration-form';
+import React from "react";
+import "./App.css";
+// import { RegistrationForm } from "./Components/cs-registration-forms/cs-registration-form";
 
 function App() {
   return (
