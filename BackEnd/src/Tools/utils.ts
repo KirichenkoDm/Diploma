@@ -1,6 +1,5 @@
 import { CreateUserDto } from '../DTO/create-user.dto';
 import { UpdateUserDto } from '../DTO/update-user.dto';
-import { Topics } from './enums';
 import { AgregateCourseObject } from './interfaces';
 import bcrypt from 'bcrypt';
 const saltRounds = 10;

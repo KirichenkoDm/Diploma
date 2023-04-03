@@ -20,7 +20,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Public()
-  @Post()
+  @Post('/signup')
   async createUser(@Res() response, @Body() createUserDto: CreateUserDto) {
     try {
       const newUser = await this.userService.createUser(createUserDto);
@@ -32,7 +32,7 @@ export class UserController {
       return response.status(HttpStatus.BAD_REQUEST).json({
         statusCode: 400,
         message: 'Error: Student not created',
-        error: 'Bed Request',
+        error: 'Bad Request',
       });
     }
   }
@@ -62,7 +62,7 @@ export class UserController {
   async signIn(
     @Res() response,
     @Param('email') email: string,
-    @Param('password') password: string,
+    //@Param('password') password: string,
   ) {
     try {
       const existingUser = await this.userService.signIn(email);

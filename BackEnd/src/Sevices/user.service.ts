@@ -14,12 +14,15 @@ export class UserService {
   async createUser(createUserDto: CreateUserDto): Promise<IUser> {
     createUserDto = (await HashPassword(createUserDto)) as CreateUserDto;
     const newUser = await new this.userModel(createUserDto);
-    return newUser.save();
+    newUser.save();
+    return newUser;
+
+    //return newUser;
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<IUser> {
     if (updateUserDto.password) {
-      updateUserDto = (await HashPassword(updateUserDto)) as UpdateUserDto;
+      //updateUserDto = (await HashPassword(updateUserDto)) as UpdateUserDto;
     }
 
     let addCoursesArray = {};

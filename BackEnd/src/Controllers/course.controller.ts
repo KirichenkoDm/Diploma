@@ -13,7 +13,6 @@ import {
 import { CourseService } from '../Sevices/course.service';
 import { CreateCourseDto } from '../DTO/create-course.dto';
 import { UpdateCourseDto } from '../DTO/update-corse.dto';
-import { Topics } from '../Tools/enums';
 import { AgregateCourseObject } from 'src/Tools/interfaces';
 
 @Controller('course')
