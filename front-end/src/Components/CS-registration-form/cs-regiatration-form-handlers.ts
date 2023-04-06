@@ -34,11 +34,12 @@ export const ValidateHandler = (formData: RegistrationFormData):FormikErrors<For
 };
 
 export const SubmitHandler = (formData:RegistrationFormData, dispatch: any) => {
-  const action = {
-    email: formData.email,
-    name: formData.name,
-    surname: formData.surname,
-    role: formData.role
-  };
-  dispatch(logIn(action));
+  // const action = {
+  //   email: formData.email,
+  //   name: formData.name,
+  //   surname: formData.surname,
+  //   password: formData.password,
+  //   role: formData.role
+  // };
+  dispatch(logIn(formData));
 };

@@ -38,6 +38,7 @@ export class UserController {
     }
   }
 
+  @Public()
   @Get('/signin')
   async signIn(
     @Res() response,
