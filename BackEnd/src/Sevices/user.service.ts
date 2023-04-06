@@ -12,17 +12,16 @@ export class UserService {
   constructor(@InjectModel('User') private userModel: Model<IUser>) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<IUser> {
-    createUserDto = (await HashPassword(createUserDto)) as CreateUserDto;
+    createUserDto.password = await HashPassword(createUserDto.password);
     const newUser = await new this.userModel(createUserDto);
+
     newUser.save();
     return newUser;
-
-    //return newUser;
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<IUser> {
     if (updateUserDto.password) {
-      //updateUserDto = (await HashPassword(updateUserDto)) as UpdateUserDto;
+      updateUserDto.password = await HashPassword(updateUserDto.password);
     }
 
     let addCoursesArray = {};

@@ -24,6 +24,7 @@ export class UserController {
   async createUser(@Res() response, @Body() createUserDto: CreateUserDto) {
     try {
       const newUser = await this.userService.createUser(createUserDto);
+      //const existingUser = await this.userService.signIn(newUser.email);
       return response.status(HttpStatus.CREATED).json({
         message: 'User created succesfully',
         newUser,
