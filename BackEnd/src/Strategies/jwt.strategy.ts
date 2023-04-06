@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   async validate(payLoad: any) {
     //look in database for a role?
-
+    //check authorised?
     return {
       userId: payLoad.sub,
       email: payLoad.email,

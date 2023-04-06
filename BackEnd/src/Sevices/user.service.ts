@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from '../DTO/create-user.dto';
@@ -6,6 +10,7 @@ import { UpdateUserDto } from '../DTO/update-user.dto';
 import { Roles } from '../Tools/enums';
 import { IUser } from '../Interfaces/user.interface';
 import { HashPassword } from 'src/Tools/utils';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -48,13 +53,14 @@ export class UserService {
     return updatedUser;
   }
 
-  async signIn(email: string): Promise<IUser> {
+  async signIn(email: string, password: string): Promise<IUser> {
     const existingUser = await this.userModel.findOne({ email: email });
 
     if (!existingUser) {
       throw new NotFoundException(`User with email "${email}" not found`);
-    }
-    return existingUser;
+    } else if (!bcrypt.compare(password, existingUser.password)) {
+      throw new ForbiddenException('Wrong Password');
+    } else return existingUser;
   }
 
   async getUser(id: string): Promise<IUser> {

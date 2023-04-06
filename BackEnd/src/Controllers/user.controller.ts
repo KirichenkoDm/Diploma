@@ -38,6 +38,23 @@ export class UserController {
     }
   }
 
+  @Get('/signin')
+  async signIn(
+    @Res() response,
+    @Param('email') email: string,
+    @Param('password') password: string,
+  ) {
+    try {
+      const existingUser = await this.userService.signIn(email, password);
+      return response.status(HttpStatus.OK).json({
+        message: 'Correct data',
+        existingUser,
+      });
+    } catch (error) {
+      return response.status(error.status).json(error.response);
+    }
+  }
+
   @Put('/:id')
   async updateUser(
     @Res() response,
@@ -52,24 +69,6 @@ export class UserController {
       return response.status(HttpStatus.OK).json({
         message: 'User updated succesfully ',
         updatedUser,
-      });
-    } catch (error) {
-      return response.status(error.status).json(error.response);
-    }
-  }
-
-  //remake?
-  @Get()
-  async signIn(
-    @Res() response,
-    @Param('email') email: string,
-    //@Param('password') password: string,
-  ) {
-    try {
-      const existingUser = await this.userService.signIn(email);
-      return response.status(HttpStatus.OK).json({
-        message: 'Correct password',
-        existingUser,
       });
     } catch (error) {
       return response.status(error.status).json(error.response);
