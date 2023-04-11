@@ -47,6 +47,7 @@ export class UserController {
   ) {
     try {
       const existingUser = await this.userService.signIn(email, password);
+      //jwt somewhere here?
       return response.status(HttpStatus.OK).json({
         message: 'Correct data',
         existingUser,

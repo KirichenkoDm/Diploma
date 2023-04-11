@@ -22,7 +22,7 @@ export const currentUserSlice = createSlice({
   name: "currentUser",
   initialState: guestUser,
   reducers: {
-    logIn: (state, action: PayloadAction<currentUser>) => {
+    singUp: (state, action: PayloadAction<currentUser>) => {
       console.log(JSON.stringify(action.payload));
       fetch("http://localhost:3001/user/signup", {
         method: "POST",
@@ -36,17 +36,23 @@ export const currentUserSlice = createSlice({
           console.log(result);
         });
       return action.payload;
+    },
 
-      // send request here
+    singIn: (state, action: PayloadAction<any>) => {
+      fetch("http://localhost:3001/user/singin", {
+        method: "GET", // ???
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(action.payload)
+      })
+        .then((response) => response.json())
+        .then((result) => result);
     }
-    // logOut: state => {
-    //   state = guestUser;
-    //   // do something?
-    // }
   }
 });
 
-export const { logIn } = currentUserSlice.actions;
+export const { singUp, singIn } = currentUserSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.currentUser;
 

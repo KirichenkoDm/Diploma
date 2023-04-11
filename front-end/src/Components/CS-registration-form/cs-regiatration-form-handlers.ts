@@ -1,5 +1,5 @@
 import { FormikErrors } from "formik";
-import { logIn } from "../../Store/currentUserSlice";
+import { singUp } from "../../Store/currentUser.slice";
 import { FormError } from "../../Utils/errorDataTypes";
 import { RegistrationFormData } from "../../Utils/formDataTypes";
 const strPattern = /^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
@@ -41,5 +41,5 @@ export const SubmitHandler = (formData:RegistrationFormData, dispatch: any) => {
   //   password: formData.password,
   //   role: formData.role
   // };
-  dispatch(logIn(formData));
+  dispatch(singUp(formData));
 };
