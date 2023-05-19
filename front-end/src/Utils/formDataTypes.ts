@@ -14,6 +14,7 @@ export type AutorisationFormData = {
 }
 
 export type SearchFormData = {
-  querry: string,
-  topic: Topics | string,
+  page: number
+  querry: string | null,
+  topic: Topics | string | null,
 }

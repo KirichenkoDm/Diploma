@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Roles } from "../Utils/enums";
 import { RootState } from "./store";
-
-interface currentUser {
-  email: string| null,
-  name: string,
-  surname: string | null,
-  password: string | null,
-  role: Roles,
-}
+import { currentUser } from "../Utils/interfaces";
 
 const guestUser: currentUser = {
   email: null,

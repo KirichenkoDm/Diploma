@@ -12,7 +12,6 @@ const selectOptions = (Object.keys(Topics) as (keyof typeof Topics)[]).map(key =
 
 export const HomeNav: FC = () => {
   const dispatch = useAppDispatch();
-  console.log(selectOptions);
   return (
     <StyledHomeNav>
       <nav>
