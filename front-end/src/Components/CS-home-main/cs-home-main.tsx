@@ -5,7 +5,7 @@ import { HomeNavigationButton } from "../CS-home-navigation-button/cs-home-navig
 import { useAppSelector } from "../../Utils/hooks";
 
 export const HomeMain: FC = () => {
-  const listCurrentPage = useAppSelector(state => state.homeCourses.page);
+  const listCurrentPage = useAppSelector(state => state.homeCourses.searchData.page);
   return (
     <StyledHomeMain>
       <main>

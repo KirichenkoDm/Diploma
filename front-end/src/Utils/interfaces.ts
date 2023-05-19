@@ -7,6 +7,7 @@ export interface currentUser {
   surname: string | null,
   password: string | null,
   role: Roles,
+  courses: coursesListItem[],
 }
 
 export interface coursesListItem {

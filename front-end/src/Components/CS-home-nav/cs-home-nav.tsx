@@ -7,6 +7,7 @@ import { SearchFormData } from "../../Utils/formDataTypes";
 import { SearchHandler } from "./cs-home-nav-handlers";
 import { InputText } from "../CS-input-text/cs-input-text";
 import { Topics } from "../../Utils/enums";
+import { UserIcon } from "../CS-user-icon/cs-user-icon";
 
 const selectOptions = (Object.keys(Topics) as (keyof typeof Topics)[]).map(key => Topics[key]);
 
@@ -31,7 +32,7 @@ export const HomeNav: FC = () => {
               <InputText
                 name="querry"
                 id="querry"
-                placeholder="serach by name or descriprion"
+                placeholder="search by name or description"
               />
               <Field name="topic" as="select">
                 <option key = "Topic" value = "Topic">Topic</option>
@@ -40,8 +41,8 @@ export const HomeNav: FC = () => {
               <button type="submit">Search</button>
             </form>
           )}
-
         </Formik>
+        <UserIcon/>
       </nav>
     </StyledHomeNav>
   );

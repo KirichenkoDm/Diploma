@@ -8,7 +8,8 @@ const guestUser: currentUser = {
   name: "Guest",
   surname: null,
   password: null,
-  role: Roles.guest
+  role: Roles.guest,
+  courses: []
 };
 
 export const currentUserSlice = createSlice({
@@ -41,11 +42,15 @@ export const currentUserSlice = createSlice({
       })
         .then((response) => response.json())
         .then((result) => result);
+    },
+
+    logOut: () => {
+      return guestUser;
     }
   }
 });
 
-export const { singUp, singIn } = currentUserSlice.actions;
+export const { singUp, singIn, logOut } = currentUserSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.currentUser;
 

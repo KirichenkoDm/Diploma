@@ -5,13 +5,11 @@ interface listItemProps {
   course: coursesListItem,
 }
 
-export const HomeCoursesListItem: FC<listItemProps> = (props) => {
+export const HomeAsideListItem: FC<listItemProps> = (props) => {
   return (
     <ul>
-      <li>{/* topic img */}</li>
       <li>{props.course.name}</li>
       <li>{props.course.topic}</li>
-      <li>{props.course.description}</li>
     </ul>
   );
 };
