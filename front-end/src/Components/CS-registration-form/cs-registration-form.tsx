@@ -70,6 +70,7 @@ export const RegistrationForm: FC = () => {
           </form>
         )}
       </Formik>
+      <a href="/singin"><p>i already have account</p></a>
     </StyledRegistrationForm>
   );
 };

@@ -39,6 +39,7 @@ export const LogInForm: FC = () => {
           </form>
         )}
       </Formik>
+      <a href="/singup"><p>i dont have account</p></a>
     </StyledLogInForm>
   );
 };
