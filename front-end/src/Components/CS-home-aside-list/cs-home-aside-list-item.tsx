@@ -7,9 +7,9 @@ interface listItemProps {
 
 export const HomeAsideListItem: FC<listItemProps> = (props) => {
   return (
-    <ul>
-      <li>{props.course.name}</li>
-      <li>{props.course.topic}</li>
-    </ul>
+    <div>
+      <p>{props.course.name}</p>
+      <p>{props.course.topic}</p>
+    </div>
   );
 };

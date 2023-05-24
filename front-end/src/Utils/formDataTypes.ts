@@ -18,3 +18,8 @@ export type SearchFormData = {
   querry: string | null,
   topic: Topics | string | null,
 }
+
+export type EditUserFormData = {
+  name: string,
+  surname: string,
+}

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Roles } from "../Utils/enums";
 import { RootState } from "./store";
 import { currentUser } from "../Utils/interfaces";
+import { AutorisationFormData, EditUserFormData, RegistrationFormData } from "../Utils/formDataTypes";
 
 const guestUser: currentUser = {
   email: null,
@@ -16,7 +17,7 @@ export const currentUserSlice = createSlice({
   name: "currentUser",
   initialState: guestUser,
   reducers: {
-    singUp: (state, action: PayloadAction<currentUser>) => {
+    singUp: (state, action: PayloadAction<RegistrationFormData>) => {
       console.log(JSON.stringify(action.payload));
       fetch("http://localhost:3001/user/signup", {
         method: "POST",
@@ -29,10 +30,10 @@ export const currentUserSlice = createSlice({
         .then((result) => {
           console.log(result);
         });
-      return action.payload;
+      return { ...action.payload, courses: [] };
     },
 
-    singIn: (state, action: PayloadAction<any>) => {
+    singIn: (state, action: PayloadAction<AutorisationFormData>) => {
       fetch("http://localhost:3001/user/singin", {
         method: "GET", // ???
         headers: {
@@ -45,12 +46,38 @@ export const currentUserSlice = createSlice({
     },
 
     logOut: () => {
+      // clear local storage
       return guestUser;
+    },
+
+    deleteAccount: () => {
+      fetch("http://localhost:3001/user/", /* userId */{
+        method: "Delete",
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+        .then((response) => response.json())
+        .then((result) => console.log(result));
+      return guestUser;
+    },
+
+    editUser: (state, action: PayloadAction<EditUserFormData>) => {
+      // fetch
+      return ({ ...state, ...action.payload });
+    },
+
+    leaveCourse: (state, action: PayloadAction<String>) => {
+      return ({ ...state, ...action.payload });
+    },
+
+    deleteCourse: (state, action: PayloadAction<String>) => {
+      return ({ ...state, ...action.payload });
     }
   }
 });
 
-export const { singUp, singIn, logOut } = currentUserSlice.actions;
+export const { singUp, singIn, logOut, deleteAccount, editUser, leaveCourse, deleteCourse } = currentUserSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.currentUser;
 

@@ -2,6 +2,7 @@ import { FormikErrors } from "formik";
 import { singUp } from "../../Store/currentUser.slice";
 import { FormError } from "../../Utils/errorDataTypes";
 import { RegistrationFormData } from "../../Utils/formDataTypes";
+
 const strPattern = /^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
