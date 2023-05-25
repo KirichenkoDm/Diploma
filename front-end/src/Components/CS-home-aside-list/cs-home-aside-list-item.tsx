@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { coursesListItem } from "../../Utils/interfaces";
+import { Link } from "react-router-dom";
 
 interface listItemProps {
   course: coursesListItem,
@@ -7,9 +8,11 @@ interface listItemProps {
 
 export const HomeAsideListItem: FC<listItemProps> = (props) => {
   return (
-    <div>
-      <p>{props.course.name}</p>
-      <p>{props.course.topic}</p>
-    </div>
+    <Link to = {`/course/${props.course.name}`}>
+      <div>
+        <p>{props.course.name}</p>
+        <p>{props.course.topic}</p>
+      </div>
+    </Link>
   );
 };

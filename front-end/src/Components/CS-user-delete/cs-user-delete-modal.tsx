@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useAppDispatch } from "../../Utils/hooks";
 import { DeleteHandler } from "./cs-user-delete-handlers";
+import { useNavigate } from "react-router-dom";
 
 interface modalProps {
   setModalIsOpen: Function,
@@ -8,12 +9,14 @@ interface modalProps {
 
 export const UserDeleteModal: FC<modalProps> = (props) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleClose = () => {
     props.setModalIsOpen(false);
   };
 
   const handleDelete = () => {
     DeleteHandler(dispatch);
+    navigate("/");
     props.setModalIsOpen(false);
   };
 

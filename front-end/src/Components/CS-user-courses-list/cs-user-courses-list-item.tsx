@@ -3,6 +3,7 @@ import { coursesListItem } from "../../Utils/interfaces";
 import { Roles } from "../../Utils/enums";
 import { DeleteCourseHandler, LeaveCourseHandler } from "./cs-user-courses-list-handlers";
 import { useAppDispatch } from "../../Utils/hooks";
+import { Link } from "react-router-dom";
 
 interface listItemProps {
   course: coursesListItem,
@@ -22,11 +23,14 @@ export const UserCoursesListItem: FC<listItemProps> = (props) => {
 
   return (
     <div>
-      <>{/* topic img */}</>
-      <p>{props.course.name}</p>
-      <p>{props.course.topic}</p>
-      <p>{props.course.description}</p>
-
+      <Link to = {`/course/${props.course.name}`}>
+        <div>
+          <>{/* topic img */}</>
+          <p>{props.course.name}</p>
+          <p>{props.course.topic}</p>
+          <p>{props.course.description}</p>
+        </div>
+      </Link>
       {
         props.userRole === Roles.teacher
           ? <>

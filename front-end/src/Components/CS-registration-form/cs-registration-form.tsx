@@ -7,11 +7,13 @@ import { Formik } from "formik";
 import { InputText } from "../CS-input-text/cs-input-text";
 import { InputRadioRole } from "../CS-Input-radio/cs-input-radio";
 import { useAppDispatch } from "../../Utils/hooks";
+import { Link, useNavigate } from "react-router-dom";
 
 const validate = ValidateHandler;
 
 export const RegistrationForm: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   return (
     <StyledRegistrationForm>
       <Formik
@@ -25,6 +27,7 @@ export const RegistrationForm: FC = () => {
         validate = {validate}
         onSubmit = {(values) => {
           SubmitHandler(values, dispatch);
+          navigate("/");
         }}
       >
         { formik => (
@@ -70,7 +73,7 @@ export const RegistrationForm: FC = () => {
           </form>
         )}
       </Formik>
-      <a href="/singin"><p>i already have account</p></a>
+      <Link to="/singin"><p>i already have account</p></Link>
     </StyledRegistrationForm>
   );
 };

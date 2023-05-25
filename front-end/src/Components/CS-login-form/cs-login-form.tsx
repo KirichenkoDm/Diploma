@@ -5,11 +5,13 @@ import { AutorisationFormData } from "../../Utils/formDataTypes";
 import { SubmitHandler, ValidateHandler } from "./cs-login-form-handlers";
 import { useAppDispatch } from "../../Utils/hooks";
 import { InputText } from "../CS-input-text/cs-input-text";
+import { Link, useNavigate } from "react-router-dom";
 
 const validate = ValidateHandler;
 
 export const LogInForm: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   return (
     <StyledLogInForm>
       <Formik
@@ -20,6 +22,7 @@ export const LogInForm: FC = () => {
         validate = {validate}
         onSubmit = {(values) => {
           SubmitHandler(values, dispatch);
+          navigate("/");
         }}
       >
         { formik => (
@@ -39,7 +42,7 @@ export const LogInForm: FC = () => {
           </form>
         )}
       </Formik>
-      <a href="/singup"><p>i dont have account</p></a>
+      <Link to="/singup"><p>i dont have account</p></Link>
     </StyledLogInForm>
   );
 };

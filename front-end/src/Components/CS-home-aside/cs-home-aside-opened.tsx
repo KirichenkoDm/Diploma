@@ -13,12 +13,15 @@ export const HomeAsideOpened: FC<asideProps> = (props) => {
   const handleClose = () => {
     props.setIsOpened(false);
   };
+  const handleLogout = () => {
+    LogoutHandler(dispatch);
+  };
 
   return (<>
     <button onClick={handleClose}>{">>>"}</button>
     {
-      currentUser.surname && <>
-        <img src="logout" onClick={() => LogoutHandler(dispatch)}/>
+      currentUser.email && <>
+        <img src="logout" onClick={handleLogout}/>
         <p>{currentUser.name + currentUser.surname}</p>
         <p>{currentUser.role}</p>
       </>
