@@ -14,10 +14,14 @@ import { CourseService } from '../Sevices/course.service';
 import { CreateCourseDto } from '../DTO/create-course.dto';
 import { UpdateCourseDto } from '../DTO/update-corse.dto';
 import { AgregateCourseObject } from 'src/Tools/interfaces';
+import { MaterialService } from 'src/Sevices/material.service';
 
 @Controller('course')
 export class CourseController {
-  constructor(private readonly courseService: CourseService) {}
+  constructor(
+    private readonly courseService: CourseService,
+    private readonly materialService: MaterialService,
+  ) {}
 
   @Post()
   async createCourse(
@@ -25,6 +29,10 @@ export class CourseController {
     @Body() createCourseDto: CreateCourseDto,
   ) {
     try {
+      const createdMaterial = await this.materialService.createMaterial({
+        materials: [],
+      });
+      createCourseDto.matherials = createdMaterial._id;
       const newCourse = await this.courseService.createCourse(createCourseDto);
       return response.status(HttpStatus.CREATED).json({
         message: 'Course created succesfully',
@@ -59,7 +67,7 @@ export class CourseController {
     }
   }
 
-  @Get('/:id')
+  @Get('course/:id')
   async getCourseById(@Res() response, @Param('id') courseId: string) {
     try {
       const existingCourse = await this.courseService.getCourseById(courseId);
@@ -72,7 +80,7 @@ export class CourseController {
     }
   }
 
-  @Get('search/')
+  @Get('search')
   async getCoursesByQuery(
     @Res() response,
     @Query() agregateObject: AgregateCourseObject,
@@ -81,6 +89,7 @@ export class CourseController {
       const existingCourse = await this.courseService.getCoursesByQuery(
         agregateObject,
       );
+      console.log(existingCourse);
       return response.status(HttpStatus.OK).json({
         message: 'All courses found succesfully',
         existingCourse,

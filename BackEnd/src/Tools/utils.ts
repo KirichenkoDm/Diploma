@@ -11,8 +11,8 @@ export async function MakeQuerryAgregateCourse(
   agregateObject: AgregateCourseObject,
 ) {
   let query = {};
-  if (agregateObject.topics && agregateObject.topics.length != 0) {
-    query = { topic: { $all: agregateObject.topics } };
+  if (agregateObject.topic) {
+    query = { $regex: agregateObject.searchQuery };
   }
 
   if (agregateObject.searchQuery && agregateObject.searchQuery.length != 0) {
@@ -24,6 +24,5 @@ export async function MakeQuerryAgregateCourse(
       },
     };
   }
-
   return query;
 }

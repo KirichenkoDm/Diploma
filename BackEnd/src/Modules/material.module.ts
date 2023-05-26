@@ -8,6 +8,7 @@ import { MaterialService } from 'src/Sevices/material.service';
   imports: [
     MongooseModule.forFeature([{ name: 'Material', schema: matherialScheema }]),
   ],
+  exports: [MaterialService],
   controllers: [MaterialController],
   providers: [MaterialService],
 })

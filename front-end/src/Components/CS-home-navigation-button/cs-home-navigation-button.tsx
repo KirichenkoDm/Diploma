@@ -15,16 +15,16 @@ export const HomeNavigationButton: FC<navigationButtonProps> = (props) => {
       {props.direct === "forward"
         ? <button
           onClick={() => {
-            homeSearchData.page++;
+            // homeSearchData.page++;
             ScrollHandler(homeSearchData, dispatch);
           }}
-        />
+        >{">>"}</button>
         : <button
           onClick={() => {
-            homeSearchData.page--;
+            // homeSearchData.page--;
             ScrollHandler(homeSearchData, dispatch);
           }}
-        />}
+        >{"<<"}</button>}
     </StyledHomeNavigationButton>
   );
 };

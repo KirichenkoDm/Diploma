@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { StyledCredits } from "./cs-credits-styled";
-import logo from "../../../public/Images/khai_logo.png";
+import logo from "../../Images/khai_logo.png";
 
 export const Credits: FC = () => {
   return (

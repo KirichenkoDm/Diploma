@@ -7,7 +7,6 @@ import { SearchFormData } from "../../Utils/formDataTypes";
 import { SearchHandler } from "./cs-home-nav-handlers";
 import { InputText } from "../CS-input-text/cs-input-text";
 import { Topics } from "../../Utils/enums";
-import { UserIcon } from "../CS-user-icon/cs-user-icon";
 
 const selectOptions = (Object.keys(Topics) as (keyof typeof Topics)[]).map(key => Topics[key]);
 
@@ -42,7 +41,6 @@ export const HomeNav: FC = () => {
             </form>
           )}
         </Formik>
-        <UserIcon/>
       </nav>
     </StyledHomeNav>
   );

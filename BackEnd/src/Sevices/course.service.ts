@@ -13,7 +13,8 @@ export class CourseService {
 
   async createCourse(createCouseDto: CreateCourseDto): Promise<ICourse> {
     const newCourse = await new this.courseModel(createCouseDto);
-    return newCourse.save();
+    newCourse.save();
+    return newCourse;
   }
 
   async updateCourse(
@@ -43,13 +44,12 @@ export class CourseService {
   async getCoursesByQuery(
     agregateObject: AgregateCourseObject,
   ): Promise<ICourse[]> {
-    const query = MakeQuerryAgregateCourse(agregateObject);
+    const query = await MakeQuerryAgregateCourse(agregateObject);
     const courseData = await this.courseModel
       .find(query)
       .sort({ $natural: -1 })
-      .skip(agregateObject.page * 10)
-      .limit(10);
-
+      .skip((agregateObject.page - 1) * 3)
+      .limit(3);
     if (!courseData || courseData.length == 0) {
       throw new NotFoundException('Courses which matches query not found');
     }
