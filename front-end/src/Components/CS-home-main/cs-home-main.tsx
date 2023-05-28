@@ -10,9 +10,9 @@ export const HomeMain: FC = () => {
     <StyledHomeMain>
       <main>
         <HomeCoursesList/>
-        <HomeNavigationButton direct = "forward"/>
+        <HomeNavigationButton direct = {+1}/>
         <p>{listCurrentPage}</p>
-        <HomeNavigationButton direct = "back"/>
+        <HomeNavigationButton direct = {-1}/>
       </main>
     </StyledHomeMain>
   );

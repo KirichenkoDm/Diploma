@@ -8,7 +8,7 @@ export const UserIcon: FC = () => {
   const user = useAppSelector(state => state.currentUser);
   const icon = user.name === "Guest"
     ? <Link to = {"/singin"}>
-      <img src={userIcon/* guest icon */} />
+      <img src={userIcon} />
     </Link>
     : <Link to = {`/user/${user.name}_${user.surname}`}>
       {user.name.slice(0, 1) + user.surname!.slice(0, 1)}

@@ -4,25 +4,26 @@ import { useAppDispatch, useAppSelector } from "../../Utils/hooks";
 import { ScrollHandler } from "./cs-home-navigation-button-handlers";
 
 interface navigationButtonProps {
-  direct: string,
+  direct: number,
 }
 
 export const HomeNavigationButton: FC<navigationButtonProps> = (props) => {
   const homeSearchData = useAppSelector(state => state.homeCourses.searchData);
+  const fetchStatus = useAppSelector(state => state.homeCourses.fetchStatus);
   const dispatch = useAppDispatch();
   return (
     <StyledHomeNavigationButton>
-      {props.direct === "forward"
+      {props.direct === +1
         ? <button
           onClick={() => {
             // homeSearchData.page++;
-            ScrollHandler(homeSearchData, dispatch);
+            ScrollHandler(homeSearchData, dispatch, fetchStatus, props.direct);
           }}
         >{">>"}</button>
         : <button
           onClick={() => {
             // homeSearchData.page--;
-            ScrollHandler(homeSearchData, dispatch);
+            ScrollHandler(homeSearchData, dispatch, fetchStatus, props.direct);
           }}
         >{"<<"}</button>}
     </StyledHomeNavigationButton>

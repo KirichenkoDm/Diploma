@@ -1,6 +1,6 @@
 import { Topics } from './enums';
 export interface AgregateCourseObject {
   page: number;
-  topic?: Topics;
-  searchQuery?: string;
+  topic: Topics | string | null;
+  searchQuery: string | null;
 }

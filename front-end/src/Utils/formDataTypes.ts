@@ -5,6 +5,7 @@ export type RegistrationFormData = {
   name: string,
   surname: string,
   password: string,
+  _id: string | null,
   role: Roles,
 }
 
@@ -15,8 +16,8 @@ export type AutorisationFormData = {
 
 export type SearchFormData = {
   page: number
-  querry: string | null,
-  topic: Topics | string | null,
+  searchQuery: string | null,
+  topic: Topics | string,
 }
 
 export type EditUserFormData = {

@@ -6,9 +6,9 @@ export enum Roles {
 }
 
 export enum Topics {
-  buisness,
-  marketing,
-  art,
-  IT,
-  selfDevelopment,
+  buisness = 'Buisness',
+  marketing = 'Marketing',
+  art = 'Art',
+  IT = 'IT',
+  selfDevelopment = 'Self Development',
 }

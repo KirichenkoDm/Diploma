@@ -56,6 +56,14 @@ export class CourseService {
     return courseData;
   }
 
+  async getCoursesByIds(ids: string[]): Promise<ICourse[]> {
+    const courseData = await this.courseModel.find({ _id: { $in: ids } });
+    if (!courseData) {
+      throw new NotFoundException('Courses with ids not found');
+    }
+    return courseData;
+  }
+
   async deleteCourse(id: string): Promise<ICourse> {
     const deletedCourse = await this.courseModel.findByIdAndDelete(id);
 

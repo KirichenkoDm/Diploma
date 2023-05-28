@@ -10,6 +10,7 @@ import { MaterialModule } from './material.module';
     MongooseModule.forFeature([{ name: 'Course', schema: courseSchema }]),
     MaterialModule,
   ],
+  exports: [CourseService],
   controllers: [CourseController],
   providers: [CourseService],
 })

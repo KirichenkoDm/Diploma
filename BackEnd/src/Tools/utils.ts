@@ -11,17 +11,17 @@ export async function MakeQuerryAgregateCourse(
   agregateObject: AgregateCourseObject,
 ) {
   let query = {};
-  if (agregateObject.topic) {
-    query = { $regex: agregateObject.searchQuery };
+  if (agregateObject.topic && agregateObject.topic.length != 0) {
+    query = { $regex: agregateObject.topic };
   }
 
   if (agregateObject.searchQuery && agregateObject.searchQuery.length != 0) {
     query = {
-      query,
-      ...{
-        name: { $regex: agregateObject.searchQuery },
-        description: { $regex: agregateObject.searchQuery },
-      },
+      ...query,
+      $or: [
+        { name: { $in: new RegExp(agregateObject.searchQuery, 'i') } },
+        { description: { $in: new RegExp(agregateObject.searchQuery, 'i') } },
+      ],
     };
   }
   return query;

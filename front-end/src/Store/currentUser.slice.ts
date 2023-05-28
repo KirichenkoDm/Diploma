@@ -8,7 +8,7 @@ const guestUser: currentUser = {
   email: null,
   name: "Guest",
   surname: null,
-  password: null,
+  _id: null,
   role: Roles.guest,
   courses: []
 };
@@ -18,7 +18,6 @@ export const currentUserSlice = createSlice({
   initialState: guestUser,
   reducers: {
     singUp: (state, action: PayloadAction<RegistrationFormData>) => {
-      console.log(JSON.stringify(action.payload));
       fetch("http://localhost:3001/user/signup", {
         method: "POST",
         headers: {
@@ -28,7 +27,8 @@ export const currentUserSlice = createSlice({
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          console.log(result.newUser);
+          return { ...result.newUser };
         });
       return { ...action.payload, courses: [] };
     },

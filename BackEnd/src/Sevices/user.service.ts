@@ -94,4 +94,12 @@ export class UserService {
     }
     return studentsData;
   }
+
+  async getAllUserCourses(userid: string): Promise<string[]> {
+    const coursesData = await this.userModel.findById(userid);
+    if (!coursesData) {
+      throw new NotFoundException(`User "#${userid}" not found`);
+    }
+    return coursesData.courses;
+  }
 }

@@ -12,3 +12,10 @@ export enum Topics {
   IT = "IT",
   selfDevelopment = "Self Development",
 }
+
+export enum FetchStatus {
+  idle = "idle",
+  loading = "loading",
+  succeeded = "succeeded",
+  failed = "failed",
+}
