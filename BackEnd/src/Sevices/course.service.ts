@@ -43,17 +43,24 @@ export class CourseService {
 
   async getCoursesByQuery(
     agregateObject: AgregateCourseObject,
-  ): Promise<ICourse[]> {
+  ): Promise<{ courseData: ICourse[]; nextPagePossible: boolean }> {
     const query = await MakeQuerryAgregateCourse(agregateObject);
     const courseData = await this.courseModel
       .find(query)
       .sort({ $natural: -1 })
       .skip((agregateObject.page - 1) * 3)
       .limit(3);
+    const nextPage = await this.courseModel
+      .find(query)
+      .sort({ $natural: -1 })
+      .skip(agregateObject.page * 3)
+      .limit(3);
+    const nextPagePossible: boolean =
+      nextPage !== undefined && nextPage.length !== 0;
     if (!courseData || courseData.length == 0) {
       throw new NotFoundException('Courses which matches query not found');
     }
-    return courseData;
+    return { courseData, nextPagePossible };
   }
 
   async getCoursesByIds(ids: string[]): Promise<ICourse[]> {

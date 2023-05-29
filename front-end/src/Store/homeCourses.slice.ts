@@ -8,7 +8,7 @@ const urlSearch = "http://localhost:3001/course/search?";
 const inetialList: homeCoursesList = {
   fetchStatus: FetchStatus.idle,
   error: null,
-  searchData: { page: 1, searchQuery: null, topic: "Topic" },
+  searchData: { page: 1, searchQuery: null, topic: "Topic", nextPagePossible: true },
   coursesList: []
 };
 
@@ -35,7 +35,7 @@ export const fetchCoursesList = createAsyncThunk("homeCourses/fetchCoursesList",
     if (result.error) {
       return [];
     } else {
-      return result.existingCourse as coursesListItem[];
+      return result as {existingCourse: coursesListItem[], nextPagePossible: boolean};
     }
   } catch (err) {
     console.log(err);
@@ -60,10 +60,12 @@ export const homeCoursesSlice = createSlice({
         state.fetchStatus = FetchStatus.loading;
       })
       .addCase(fetchCoursesList.fulfilled, (state, action: PayloadAction<any>) => {
+        const nextPagePossible = action.payload.nextPagePossible;
         return {
           ...state,
-          coursesList: [...action.payload],
-          fetchStatus: FetchStatus.succeeded
+          coursesList: [...action.payload.existingCourse],
+          fetchStatus: FetchStatus.succeeded,
+          searchData: { ...state.searchData, nextPagePossible }
         };
       })
       .addCase(fetchCoursesList.rejected, () => {

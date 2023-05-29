@@ -4,6 +4,7 @@ import HomePage from "../Pages/cs-home-page";
 import LoginPage from "../Pages/cs-login-page";
 import UserPage from "../Pages/cs-user-page";
 import ErrorPage from "../Pages/cs-error-page";
+import CoursePage from "../Pages/cs-course-page";
 
 export const rootRouter = createBrowserRouter([
   {
@@ -20,7 +21,11 @@ export const rootRouter = createBrowserRouter([
     element: <LoginPage/>
   },
   {
-    path: "/user/:username",
+    path: "/user/:userid",
     element: <UserPage/>
+  },
+  {
+    path: "/course/:courseid",
+    element: <CoursePage/>
   }
 ]);

@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from '../DTO/create-user.dto';
 import { UpdateUserDto } from '../DTO/update-user.dto';
-import { Roles } from '../Tools/enums';
 import { UserService } from '../Sevices/user.service';
 import { Public } from '../Tools/decorators';
 import { CourseService } from 'src/Sevices/course.service';
@@ -97,27 +96,10 @@ export class UserController {
     }
   }
 
-  @Get('/:course/:role')
-  async getAllCourseUsers(
-    @Res() response,
-    @Param('id') courseId: string,
-    @Param('role') role: Roles,
-  ) {
+  @Get(':uid/courses')
+  async getAllUserCourses(@Res() response, @Param('uid') uid: string) {
     try {
-      const userData = await this.userService.getAllCourseUsers(courseId, role);
-      return response.status(HttpStatus.OK).json({
-        message: 'Users data found succesfully',
-        userData,
-      });
-    } catch (error) {
-      return response.status(error.status).json(error.response);
-    }
-  }
-
-  @Get('/:id/courses')
-  async getAllUserCourses(@Res() response, @Param('id') userId: string) {
-    try {
-      const coursesIDs = await this.userService.getAllUserCourses(userId);
+      const coursesIDs = await this.userService.getAllUserCourses(uid);
       const courseData = await this.courseService.getCoursesByIds(coursesIDs);
       return response.status(HttpStatus.OK).json({
         message: 'Courses data found succesfully',

@@ -15,12 +15,14 @@ export const HomeNavigationButton: FC<navigationButtonProps> = (props) => {
     <StyledHomeNavigationButton>
       {props.direct === +1
         ? <button
+          disabled={!homeSearchData.nextPagePossible}
           onClick={() => {
             // homeSearchData.page++;
             ScrollHandler(homeSearchData, dispatch, fetchStatus, props.direct);
           }}
         >{">>"}</button>
         : <button
+          disabled={homeSearchData.page === 1}
           onClick={() => {
             // homeSearchData.page--;
             ScrollHandler(homeSearchData, dispatch, fetchStatus, props.direct);

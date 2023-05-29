@@ -91,7 +91,8 @@ export class CourseController {
       );
       return response.status(HttpStatus.OK).json({
         message: 'All courses found succesfully',
-        existingCourse,
+        existingCourse: existingCourse.courseData,
+        nextPagePossible: existingCourse.nextPagePossible,
       });
     } catch (error) {
       return response.status(error.status).json(error.response);

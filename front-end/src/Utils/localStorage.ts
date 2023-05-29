@@ -6,7 +6,7 @@ export const loadUser = () => {
     if (userState === null) {
       return undefined;
     }
-    return JSON.parse(userState);
+    return JSON.parse(userState) as currentUser;
   } catch (err) {
     return undefined;
   }

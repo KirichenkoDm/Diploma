@@ -25,7 +25,9 @@ export const HomeCoursesListItem: FC<listItemProps> = (props) => {
 
   let addIcon = null;
   if (userName !== "Guest") {
-    if (userCourses.some(course => course.toString() === props.course._id)) {
+    if (
+      userCourses.some((course: coursesListItem) => course._id === props.course._id)
+    ) {
       addIcon = <img src= {leaveCourseIcon} onClick={LeaveCourse}/>;
     } else {
       addIcon = <img src= {joinCourseIcon} onClick={JoinCourse}/>;
@@ -33,7 +35,7 @@ export const HomeCoursesListItem: FC<listItemProps> = (props) => {
   }
   return (
     <div>
-      <Link to = {`/course/${props.course.name}`}>
+      <Link to = {`/course/${props.course._id}`}>
         <>{/* topic img */}</>
         <p>{props.course.name}</p>
         <p>{props.course.topic}</p>

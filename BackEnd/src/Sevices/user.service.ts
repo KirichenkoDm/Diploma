@@ -79,7 +79,6 @@ export class UserService {
   async getAllCourseUsers(courseId: string, userRole: Roles): Promise<IUser[]> {
     const studentsData = await this.userModel.find({
       courses: { $in: [courseId] },
-      role: userRole,
     });
 
     if (!studentsData || studentsData.length == 0) {

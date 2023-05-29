@@ -23,7 +23,7 @@ export const UserCoursesListItem: FC<listItemProps> = (props) => {
 
   return (
     <div>
-      <Link to = {`/course/${props.course.name}`}>
+      <Link to = {`/course/${props.course._id}`}>
         <div>
           <>{/* topic img */}</>
           <p>{props.course.name}</p>

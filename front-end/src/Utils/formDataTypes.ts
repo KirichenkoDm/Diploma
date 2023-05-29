@@ -18,6 +18,7 @@ export type SearchFormData = {
   page: number
   searchQuery: string | null,
   topic: Topics | string,
+  nextPagePossible: boolean
 }
 
 export type EditUserFormData = {
