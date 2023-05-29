@@ -2,6 +2,7 @@ import { FetchStatus, Roles, Topics } from "./enums";
 import { SearchFormData } from "./formDataTypes";
 
 export interface currentUser {
+  fetchStatus: FetchStatus,
   email: string| null,
   name: string,
   surname: string | null,
@@ -22,4 +23,11 @@ export interface homeCoursesList {
   error: string | null,
   searchData: SearchFormData,
   coursesList: coursesListItem[],
+}
+
+export interface updateUserData {
+  name?: string
+  surname?: string
+  CourseId?: string
+  act?: string
 }

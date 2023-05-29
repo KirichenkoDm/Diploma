@@ -1,7 +1,7 @@
 import { FormikErrors } from "formik";
 import { EditUserFormData } from "../../Utils/formDataTypes";
 import { FormError } from "../../Utils/errorDataTypes";
-import { editUser } from "../../Store/currentUser.slice";
+import { fetchUpdateUser } from "../../Store/currentUser.slice";
 
 const strPattern = /^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 
@@ -28,5 +28,5 @@ export const ValidateHandler = (formData: EditUserFormData):FormikErrors<FormErr
 };
 
 export const SubmitHandler = (formData:EditUserFormData, dispatch: any) => {
-  dispatch(editUser(formData));
+  dispatch(fetchUpdateUser(formData));
 };

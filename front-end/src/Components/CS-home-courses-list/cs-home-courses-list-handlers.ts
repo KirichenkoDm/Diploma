@@ -1,9 +1,9 @@
 import { fetchUpdateUser } from "../../Store/currentUser.slice";
 
-export const DeleteCourseHandler = (id: string, dispatch: any) => {
+export const JoinCourseHandler = (dispatch: any, id: string) => {
   dispatch(fetchUpdateUser({ CourseId: id, act: "join" }));
 };
 
-export const LeaveCourseHandler = (id: string, dispatch: any) => {
+export const LeaveCourseHandler = (dispatch: any, id: string) => {
   dispatch(fetchUpdateUser({ CourseId: id, act: "leave" }));
 };

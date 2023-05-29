@@ -21,32 +21,27 @@ export class UserService {
     const newUser = await new this.userModel(createUserDto);
 
     newUser.save();
-    return newUser;
+    const responseUser = JSON.parse(JSON.stringify(newUser));
+    responseUser.password = undefined;
+    return responseUser;
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<IUser> {
-    if (updateUserDto.password) {
-      updateUserDto.password = await HashPassword(updateUserDto.password);
+    // if (updateUserDto.password) {
+    //   updateUserDto.password = await HashPassword(updateUserDto.password);
+    // }
+
+    let querry = {};
+
+    if (updateUserDto.act === 'join') {
+      querry = { $addToSet: { courses: updateUserDto.CourseId } };
+    } else {
+      querry = { $pull: { courses: updateUserDto.CourseId } };
     }
 
-    let addCoursesArray = {};
-    let deleteCoursesArray = {};
-    if (updateUserDto.addCourses && updateUserDto.addCourses.length != 0) {
-      addCoursesArray = { $addToSet: { courses: updateUserDto.addCourses } };
-    }
-    if (updateUserDto.deleteCourses && updateUserDto.addCourses.length != 0) {
-      deleteCoursesArray = { $pull: { courses: updateUserDto.deleteCourses } };
-    }
-
-    const updatedUser = await this.userModel.findByIdAndUpdate(
-      id,
-      {
-        updateUserDto,
-        addCoursesArray,
-        deleteCoursesArray,
-      },
-      { new: true },
-    );
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, querry, {
+      new: true,
+    });
     if (!updatedUser) {
       throw new NotFoundException(`User "#${id}" not found`);
     }

@@ -17,11 +17,11 @@ export class course {
   name: string;
 
   @Prop({
-    type: Number,
+    type: String,
     enum: Topics,
     required: true,
   })
-  topic: number;
+  topic: string;
 
   @Prop({
     type: String,

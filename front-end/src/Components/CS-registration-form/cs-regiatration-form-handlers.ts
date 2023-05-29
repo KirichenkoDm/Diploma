@@ -1,7 +1,7 @@
 import { FormikErrors } from "formik";
-import { singUp } from "../../Store/currentUser.slice";
 import { FormError } from "../../Utils/errorDataTypes";
 import { RegistrationFormData } from "../../Utils/formDataTypes";
+import { fetchSignUp } from "../../Store/currentUser.slice";
 
 const strPattern = /^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -35,12 +35,5 @@ export const ValidateHandler = (formData: RegistrationFormData):FormikErrors<For
 };
 
 export const SubmitHandler = (formData:RegistrationFormData, dispatch: any) => {
-  // const action = {
-  //   email: formData.email,
-  //   name: formData.name,
-  //   surname: formData.surname,
-  //   password: formData.password,
-  //   role: formData.role
-  // };
-  dispatch(singUp(formData));
+  dispatch(fetchSignUp(formData));
 };

@@ -10,7 +10,7 @@ export const UserIcon: FC = () => {
     ? <Link to = {"/singin"}>
       <img src={userIcon} />
     </Link>
-    : <Link to = {`/user/${user.name}_${user.surname}`}>
+    : <Link to = {`/user/${user._id}`}>
       {user.name.slice(0, 1) + user.surname!.slice(0, 1)}
     </Link>;
   return (

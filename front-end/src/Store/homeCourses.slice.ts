@@ -33,7 +33,6 @@ export const fetchCoursesList = createAsyncThunk("homeCourses/fetchCoursesList",
     const result = await response.json();
     console.log(result);
     if (result.error) {
-      console.log(result.error);
       return [];
     } else {
       return result.existingCourse as coursesListItem[];

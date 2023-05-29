@@ -89,7 +89,6 @@ export class CourseController {
       const existingCourse = await this.courseService.getCoursesByQuery(
         agregateObject,
       );
-      console.log(existingCourse);
       return response.status(HttpStatus.OK).json({
         message: 'All courses found succesfully',
         existingCourse,

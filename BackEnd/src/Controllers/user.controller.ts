@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Res,
 } from '@nestjs/common';
 import { CreateUserDto } from '../DTO/create-user.dto';
@@ -46,11 +47,13 @@ export class UserController {
   @Get('/signin')
   async signIn(
     @Res() response,
-    @Param('email') email: string,
-    @Param('password') password: string,
+    @Query() querry: { email: string; password: string },
   ) {
     try {
-      const existingUser = await this.userService.signIn(email, password);
+      const existingUser = await this.userService.signIn(
+        querry.email,
+        querry.password,
+      );
       //jwt somewhere here?
       return response.status(HttpStatus.OK).json({
         message: 'Correct data',

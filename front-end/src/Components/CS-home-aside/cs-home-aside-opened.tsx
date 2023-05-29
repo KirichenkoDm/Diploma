@@ -10,18 +10,20 @@ interface asideProps {
 export const HomeAsideOpened: FC<asideProps> = (props) => {
   const currentUser = useAppSelector(state => state.currentUser);
   const dispatch = useAppDispatch();
-  const handleClose = () => {
+
+  const Close = () => {
     props.setIsOpened(false);
   };
-  const handleLogout = () => {
+
+  const Logout = () => {
     LogoutHandler(dispatch);
   };
 
   return (<>
-    <button onClick={handleClose}>{">>>"}</button>
+    <button onClick={Close}>{">>>"}</button>
     {
       currentUser.email && <>
-        <img src="logout" onClick={handleLogout}/>
+        <img src="logout" onClick={Logout}/>
         <p>{currentUser.name + currentUser.surname}</p>
         <p>{currentUser.role}</p>
       </>
