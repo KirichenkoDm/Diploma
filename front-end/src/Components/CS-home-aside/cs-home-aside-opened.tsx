@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from "../../Utils/hooks";
 import { HomeAsideList } from "../CS-home-aside-list/cs-home-aside-list";
 import { HomeAsideAutorize } from "../CS-home-aside-autorize/cs-home-aside-autorise";
 import { LogoutHandler } from "./cs-home-aside-handlers";
+import logoutIcon from "../../Images/logout_icon.png";
+
 interface asideProps {
   setIsOpened: Function,
 }
@@ -23,7 +25,7 @@ export const HomeAsideOpened: FC<asideProps> = (props) => {
     <button onClick={Close}>{">>>"}</button>
     {
       currentUser.email && <>
-        <img src="logout" onClick={Logout}/>
+        <img src={logoutIcon} onClick={Logout}/>
         <p>{currentUser.name + currentUser.surname}</p>
         <p>{currentUser.role}</p>
       </>
