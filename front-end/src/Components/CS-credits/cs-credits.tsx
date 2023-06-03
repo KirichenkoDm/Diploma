@@ -7,8 +7,8 @@ export const Credits: FC = () => {
     <StyledCredits>
       <p>Application made by student of</p>
       <img src={logo}></img>
-      <p>National Aerospace University «Kharkiv Aviation Institute»</p>
-      <p>Kyrychenko Dmytro</p>
+      <p>National Aerospace University «Kharkiv Aviation Institute» </p>
+      <p>Kyrychenko Dmytro </p>
       <p>2023</p>
     </StyledCredits>
   );
