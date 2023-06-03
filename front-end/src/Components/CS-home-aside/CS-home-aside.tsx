@@ -8,12 +8,14 @@ export const HomeAside: FC = () => {
   const [isOpened, setIsOpened] = useState(false);
   return (
     <StyledHomeAside>
-      <UserIcon/>
-      {
-        isOpened
-          ? <HomeAsideOpened setIsOpened={setIsOpened}/>
-          : <HomeAsideClosed setIsOpened={setIsOpened}/>
-      }
+      <aside>
+        <UserIcon/>
+        {
+          isOpened
+            ? <HomeAsideOpened setIsOpened={setIsOpened}/>
+            : <HomeAsideClosed setIsOpened={setIsOpened}/>
+        }
+      </aside>
     </StyledHomeAside>
   );
 };

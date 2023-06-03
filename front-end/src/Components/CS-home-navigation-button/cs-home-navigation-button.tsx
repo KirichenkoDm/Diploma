@@ -12,22 +12,20 @@ export const HomeNavigationButton: FC<navigationButtonProps> = (props) => {
   const fetchStatus = useAppSelector(state => state.homeCourses.fetchStatus);
   const dispatch = useAppDispatch();
   return (
-    <StyledHomeNavigationButton>
+    <StyledHomeNavigationButton direction = {props.direct.toString()}>
       {props.direct === +1
         ? <button
           disabled={!homeSearchData.nextPagePossible}
           onClick={() => {
-            // homeSearchData.page++;
             ScrollHandler(homeSearchData, dispatch, fetchStatus, props.direct);
           }}
-        >{">>"}</button>
+        ></button>
         : <button
           disabled={homeSearchData.page === 1}
           onClick={() => {
-            // homeSearchData.page--;
             ScrollHandler(homeSearchData, dispatch, fetchStatus, props.direct);
           }}
-        >{"<<"}</button>}
+        ></button>}
     </StyledHomeNavigationButton>
   );
 };

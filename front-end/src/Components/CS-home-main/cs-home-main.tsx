@@ -10,9 +10,11 @@ export const HomeMain: FC = () => {
     <StyledHomeMain>
       <main>
         <HomeCoursesList/>
-        <HomeNavigationButton direct = {+1}/>
-        <p>{listCurrentPage}</p>
-        <HomeNavigationButton direct = {-1}/>
+        <div className="Home-Navigation">
+          <HomeNavigationButton direct = {-1}/>
+          <p>{listCurrentPage}</p>
+          <HomeNavigationButton direct = {+1}/>
+        </div>
       </main>
     </StyledHomeMain>
   );
