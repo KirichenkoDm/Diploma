@@ -22,12 +22,12 @@ export const HomeAsideOpened: FC<asideProps> = (props) => {
   };
 
   return (<>
-    <button onClick={Close}>{">>>"}</button>
+    <button className="HomeAside-Open-Close" onClick={Close}>{">"}</button>
     {
       currentUser.email && <>
-        <img src={logoutIcon} onClick={Logout}/>
-        <p>{currentUser.name + currentUser.surname}</p>
-        <p>{currentUser.role}</p>
+        <img className="HomeAsideOpened-Logout" src={logoutIcon} onClick={Logout}/> {/* 2 */}
+        <p className="HomeAsideOpened-NameSurname">{currentUser.name + " " + currentUser.surname}</p> {/* 3 */}
+        <p className="HomeAsideOpened-Role">{currentUser.role}</p> {/* 4 */}
       </>
     }
     {

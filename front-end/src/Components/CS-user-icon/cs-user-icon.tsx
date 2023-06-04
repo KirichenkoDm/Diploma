@@ -14,7 +14,7 @@ export const UserIcon: FC = () => {
       {user.name.slice(0, 1) + user.surname!.slice(0, 1)}
     </Link>;
   return (
-    <StyledUserIcon>
+    <StyledUserIcon isAutorised={user.name !== "Guest"}>
       {icon}
     </StyledUserIcon>
   );

@@ -10,6 +10,6 @@ export const HomeAsideClosed: FC<asideProps> = (props) => {
   };
 
   return (<>
-    <button onClick={handleOpen}>{"<<<"}</button>
+    <button className="HomeAside-Open-Close" onClick={handleOpen}>{"<"}</button>
   </>);
 };

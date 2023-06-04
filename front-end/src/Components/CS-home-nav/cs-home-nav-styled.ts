@@ -13,6 +13,9 @@ export const StyledHomeNav = styled.div`
   form {
     display: flex;
   }
+  input {
+    margin-left: 10vw;
+  }
   select {
     border: none;
     border-radius: 10px;

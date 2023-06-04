@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { coursesListItem } from "../../Utils/interfaces";
 import { Link } from "react-router-dom";
+import { StyledHomeAsideListItem } from "./cs-home-aside-list-item-styled";
 
 interface listItemProps {
   course: coursesListItem,
@@ -8,11 +9,11 @@ interface listItemProps {
 
 export const HomeAsideListItem: FC<listItemProps> = (props) => {
   return (
-    <Link to = {`/course/${props.course.name}`}>
-      <div>
+    <StyledHomeAsideListItem>
+      <Link to = {`/course/${props.course.name}`}>
         <p>{props.course.name}</p>
         <p>{props.course.topic}</p>
-      </div>
-    </Link>
+      </Link>
+    </StyledHomeAsideListItem>
   );
 };

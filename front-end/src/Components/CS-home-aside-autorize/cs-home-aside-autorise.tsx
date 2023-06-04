@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 export const HomeAsideAutorize: FC = () => {
   return (
     <StyledHomeAsideAutorize>
-      <p>authorize to see your corses</p>
-      <Link to = {"/singin"}><button>sign in</button></Link>
-      <p>or create account</p>
-      <Link to = {"/singup"}><button>sign up</button></Link>
+      <p className="HomeAsideAutorize-Autorize">authorize to see your corses</p>
+      <Link className="HomeAsideAutorize-Autorize-btn" to = {"/singin"}><button>Sign in</button></Link>
+      <p className="HomeAsideAutorize-Create">or create account</p>
+      <Link className="HomeAsideAutorize-Create-btn" to = {"/singup"}><button>Sign up</button></Link>
     </StyledHomeAsideAutorize>
   );
 };

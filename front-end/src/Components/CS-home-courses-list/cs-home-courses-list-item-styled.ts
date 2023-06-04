@@ -4,7 +4,6 @@ export const StyledHomeCoursesListItem = styled.div`
   display: grid;
   grid-template-rows: 5fr,1fr;
   grid-template-columns: repeat(2,1fr);
-  
   border: solid 2px black;
   border-radius: 15px;
   margin: 15px 0px;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledCredits = styled.div`
-  height: 12vh;
+  height: 12.5vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,7 +9,7 @@ export const StyledCredits = styled.div`
   img {
     margin: 0px 10px;
     width: 2.5vw;
-    heiht: 1vh
+    height: 2.8vh
   }
   p {
     margin: 0px 5px;
