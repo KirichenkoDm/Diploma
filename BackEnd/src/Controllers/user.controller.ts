@@ -49,10 +49,21 @@ export class UserController {
     @Query() querry: { email: string; password: string },
   ) {
     try {
-      const existingUser = await this.userService.signIn(
+      const userData = await this.userService.signIn(
         querry.email,
         querry.password,
       );
+      const courseData = await this.courseService.getCoursesByIds(
+        userData.courses,
+      );
+      const existingUser = {
+        email: userData.email,
+        name: userData.name,
+        surname: userData.surname,
+        _id: userData._id,
+        role: userData.role,
+        courses: courseData,
+      };
       //jwt somewhere here?
       return response.status(HttpStatus.OK).json({
         message: 'Correct data',
@@ -70,10 +81,18 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     try {
-      const updatedUser = await this.userService.updateUser(
-        userId,
-        updateUserDto,
+      const userData = await this.userService.updateUser(userId, updateUserDto);
+      const courseData = await this.courseService.getCoursesByIds(
+        userData.courses,
       );
+      const updatedUser = {
+        email: userData.email,
+        name: userData.name,
+        surname: userData.surname,
+        _id: userData._id,
+        role: userData.role,
+        courses: courseData,
+      };
       return response.status(HttpStatus.OK).json({
         message: 'User updated succesfully ',
         updatedUser,

@@ -25,7 +25,7 @@ export const StyledHomeNavigationButton = styled.div<Props>`
 }
 }
 
-  button: hover {
+  button:hover {
     transform: scale(1.2);
   }
 `;

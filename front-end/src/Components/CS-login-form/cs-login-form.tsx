@@ -27,6 +27,8 @@ export const LogInForm: FC = () => {
       >
         { formik => (
           <form onSubmit={formik.handleSubmit}>
+            <h1>Sign in</h1>
+
             <InputText
               name="email"
               id="email"

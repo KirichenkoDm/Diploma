@@ -59,16 +59,17 @@ export const RegistrationForm: FC = () => {
               id="password"
               placeholder="Password"
             />
-
-            <InputRadioRole
-              name="role"
-              value={Roles.student}
-              checked={true}
-            />
-            <InputRadioRole
-              name="role"
-              value={Roles.teacher}
-            />
+            <div className="RadioInput-Container">
+              <InputRadioRole
+                name="role"
+                value={Roles.student}
+                checked={true}
+              />
+              <InputRadioRole
+                name="role"
+                value={Roles.teacher}
+              />
+            </div>
             <button type="submit">Create User</button>
           </form>
         )}

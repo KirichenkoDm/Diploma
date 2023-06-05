@@ -31,7 +31,6 @@ export const fetchCoursesList = createAsyncThunk("homeCourses/fetchCoursesList",
         }
       });
     const result = await response.json();
-    console.log(result);
     if (result.error) {
       return [];
     } else {
@@ -61,12 +60,9 @@ export const homeCoursesSlice = createSlice({
       })
       .addCase(fetchCoursesList.fulfilled, (state, action: PayloadAction<any>) => {
         const nextPagePossible = action.payload.nextPagePossible;
-        return {
-          ...state,
-          coursesList: [...action.payload.existingCourse],
-          fetchStatus: FetchStatus.succeeded,
-          searchData: { ...state.searchData, nextPagePossible }
-        };
+        state.searchData = { ...state.searchData, nextPagePossible };
+        state.coursesList = [...action.payload.existingCourse];
+        state.fetchStatus = FetchStatus.succeeded;
       })
       .addCase(fetchCoursesList.rejected, () => {
         console.log("here");

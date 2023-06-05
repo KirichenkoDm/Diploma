@@ -4,17 +4,22 @@ import { StyledHomeCoursesList } from "./cs-home-courses-list-styled";
 import { coursesListItem } from "../../Utils/interfaces";
 import { HomeCoursesListItem } from "./cs-home-courses-list-item";
 import { fetchCoursesList } from "../../Store/homeCourses.slice";
-import { FetchStatus } from "../../Utils/enums";
+// import { FetchStatus } from "../../Utils/enums";
+import { fetchUserCourses } from "../../Store/currentUser.slice";
 
 export const HomeCoursesList: FC = () => {
+  const currentUser = useAppSelector(state => state.currentUser._id);
   const homeCourses = useAppSelector(state => state.homeCourses.coursesList);
-  const fetchStatus = useAppSelector(state => state.homeCourses.fetchStatus);
+  // const fetchStatusUser = useAppSelector(state => state.currentUser.fetchStatus);
+  // const fetchStatusCourses = useAppSelector(state => state.homeCourses.fetchStatus);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (fetchStatus === FetchStatus.idle) {
-      dispatch(fetchCoursesList());
+    if (currentUser) {
+      dispatch(fetchUserCourses());
     }
-  }, [fetchStatus, dispatch]);
+    dispatch(fetchCoursesList());
+  }, []);
+
   return (
     <StyledHomeCoursesList>
       {homeCourses.map(

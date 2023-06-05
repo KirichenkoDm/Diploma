@@ -31,6 +31,11 @@ export const ValidateHandler = (formData: RegistrationFormData):FormikErrors<For
     errors.surname = "invalid surname";
   }
 
+  if (!formData.password) {
+    errors.password = "Required";
+  } else if (formData.password.length < 6) {
+    errors.password = "Password is too short";
+  }
   return errors;
 };
 

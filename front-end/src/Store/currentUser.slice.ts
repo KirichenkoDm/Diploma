@@ -4,7 +4,6 @@ import { RootState } from "./store";
 import { coursesListItem, currentUser, updateUserData } from "../Utils/interfaces";
 import { AutorisationFormData, RegistrationFormData } from "../Utils/formDataTypes";
 import { loadUser } from "../Utils/localStorage";
-// import { loadUser } from "../Utils/localStorage";
 
 const guestUser: currentUser = {
   fetchStatus: FetchStatus.idle,
@@ -55,7 +54,6 @@ export const fetchSignIn = createAsyncThunk(
         }
       });
       const result = await response.json();
-      result.existingUser.courses = result.existingUser.courses.map((course: string) => ({ _id: course }));
       if (result.error) {
         return state.currentUser;
       } else {
@@ -90,9 +88,6 @@ export const fetchUpdateUser = createAsyncThunk(
   async(data: updateUserData, { getState }) => {
     try {
       const state: any = getState();
-      // const searchParams = new URLSearchParams();
-      // searchParams.append("email", signIpData.email);
-      // searchParams.append("password", signIpData.password);
       const response = await fetch(
         "http://localhost:3001/user/" + state.currentUser._id,
         {
@@ -148,7 +143,6 @@ export const currentUserSlice = createSlice({
         state.fetchStatus = FetchStatus.loading;
       })
       .addCase(fetchSignIn.fulfilled, (state, action: PayloadAction<any>) => { // any
-        console.log(action.payload);
         return {
           ...action.payload,
           fetchStatus: FetchStatus.succeeded
@@ -165,10 +159,12 @@ export const currentUserSlice = createSlice({
         state.fetchStatus = FetchStatus.loading;
       })
       .addCase(fetchUpdateUser.fulfilled, (state, action: PayloadAction<any>) => { // any
-        return {
-          ...action.payload,
-          fetchStatus: FetchStatus.succeeded
-        };
+        state.courses = action.payload.courses;
+        state.fetchStatus = FetchStatus.succeeded;
+        // return {
+        //   ...action.payload,
+        //   fetchStatus: FetchStatus.succeeded
+        // };
       });
   }
 });

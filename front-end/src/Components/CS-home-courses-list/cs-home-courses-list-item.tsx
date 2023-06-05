@@ -24,17 +24,20 @@ export const HomeCoursesListItem: FC<listItemProps> = (props) => {
   const LeaveCourse = () => {
     LeaveCourseHandler(dispatch, props.course._id);
   };
-
-  let addIcon = null;
-  if (userName !== "Guest") {
-    if (
-      userCourses.some((course: coursesListItem) => course._id === props.course._id)
-    ) {
-      addIcon = <img className="HomeCoursesListItem-AddIcon" src= {leaveCourseIcon} onClick={LeaveCourse}/>;
-    } else {
-      addIcon = <img className="HomeCoursesListItem-AddIcon" src= {joinCourseIcon} onClick={JoinCourse}/>;
-    }
-  }
+  const course = userCourses.find((course: coursesListItem) => course._id === props.course._id);
+  // let iconSrc = "";
+  // let clickHandler = () => {};
+  // if (userName !== "Guest") {
+  //
+  //   if (course) {
+  //     iconSrc = leaveCourseIcon;
+  //     clickHandler = LeaveCourse;
+  //   } else {
+  //     iconSrc = joinCourseIcon;
+  //     clickHandler = JoinCourse;
+  //   }
+  // }
+  // console.log(iconSrc);
   return (
     <StyledHomeCoursesListItem>
       <Link to = {`/course/${props.course._id}`}>
@@ -43,7 +46,12 @@ export const HomeCoursesListItem: FC<listItemProps> = (props) => {
         <p className="HomeCoursesListItem-Topic">{props.course.topic}</p>
         <p className="HomeCoursesListItem-Description">{props.course.description}</p>
       </Link>
-      {addIcon}
+      {(userName !== "Guest" && course)
+      && <img className="HomeCoursesListItem-AddIcon" src= {leaveCourseIcon} onClick={LeaveCourse}/>
+      }
+      {(userName !== "Guest" && !course)
+      && <img className="HomeCoursesListItem-AddIcon" src= {joinCourseIcon} onClick={JoinCourse}/>
+      }
     </StyledHomeCoursesListItem>
   );
 };

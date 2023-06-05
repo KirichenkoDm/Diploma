@@ -12,6 +12,7 @@ export const StyledHomeNav = styled.div`
   }
   form {
     display: flex;
+    align-items: center;
   }
   input {
     margin-left: 10vw;
