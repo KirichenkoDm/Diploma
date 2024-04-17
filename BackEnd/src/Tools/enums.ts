@@ -1,13 +1,14 @@
 export enum Roles {
-    admin,
-    student,
-    teacher,    
+  admin = 'admin',
+  student = 'student',
+  teacher = 'teacher',
+  guest = 'guest',
 }
 
 export enum Topics {
-    buisness,
-    marketing,
-    art,
-    IT,
-    selfDevelopment,
+  buisness = 'Buisness',
+  marketing = 'Marketing',
+  art = 'Art',
+  IT = 'IT',
+  selfDevelopment = 'Self Development',
 }

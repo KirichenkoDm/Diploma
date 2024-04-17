@@ -1,12 +1,9 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
 export class matherial {
-    @Prop()
-    materials: Array<string>;
-
-    @Prop()
-    relatedCourse: string;
+  @Prop([String])
+  materials: string[];
 }
 
 export const matherialScheema = SchemaFactory.createForClass(matherial);

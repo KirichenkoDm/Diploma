@@ -1,22 +1,40 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Topics } from "../Tools/enums";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Topics } from '../Tools/enums';
 
 @Schema()
 export class course {
-    @Prop()
-    hidden: boolean;
+  @Prop({
+    type: Boolean,
+    required: true,
+  })
+  hidden: boolean;
 
-    @Prop()
-    name: string;
+  @Prop({
+    type: String,
+    required: true,
+    maxLength: 30,
+  })
+  name: string;
 
-    @Prop()
-    topic: Topics;
+  @Prop({
+    type: String,
+    enum: Topics,
+    required: true,
+  })
+  topic: string;
 
-    @Prop()
-    description: string;
+  @Prop({
+    type: String,
+    required: true,
+  })
+  description: string;
 
-    @Prop()
-    matherials: string;
+  @Prop({
+    type: String,
+    required: true,
+    unique: true,
+  })
+  matherials: string;
 }
 
 export const courseSchema = SchemaFactory.createForClass(course);

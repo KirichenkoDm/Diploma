@@ -1,24 +1,24 @@
-import { IsNotEmpty, IsBoolean, IsString, MaxLength } from "class-validator";
-import { Topics } from "../Tools/enums";
+import { IsNotEmpty, IsBoolean, IsString, MaxLength } from 'class-validator';
+import { Topics } from '../Tools/enums';
 
 export class CreateCourseDto {
-    @IsBoolean()
-    @IsNotEmpty()
-    readonly hidden: boolean;
+  @IsBoolean()
+  @IsNotEmpty()
+  hidden: boolean;
 
-    @IsString()
-    @MaxLength(30)
-    @IsNotEmpty()
-    readonly name: string;
+  @IsString()
+  @MaxLength(30)
+  @IsNotEmpty()
+  name: string;
 
-    @IsNotEmpty()
-    readonly topic: Topics;
+  @IsNotEmpty()
+  topic: Topics;
 
-    @IsString()
-    @IsNotEmpty()
-    readonly description: string;
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 
-    @IsString()
-    @IsNotEmpty()
-    readonly matherials: string;
+  @IsString()
+  @IsNotEmpty()
+  matherials: string;
 }
