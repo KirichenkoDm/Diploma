@@ -7,23 +7,28 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Res,
 } from '@nestjs/common';
 import { CreateUserDto } from '../DTO/create-user.dto';
 import { UpdateUserDto } from '../DTO/update-user.dto';
-import { Roles } from '../Tools/enums';
 import { UserService } from '../Sevices/user.service';
 import { Public } from '../Tools/decorators';
+import { CourseService } from 'src/Sevices/course.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly courseService: CourseService,
+  ) {}
 
   @Public()
   @Post('/signup')
   async createUser(@Res() response, @Body() createUserDto: CreateUserDto) {
     try {
       const newUser = await this.userService.createUser(createUserDto);
+      //const existingUser = await this.userService.signIn(newUser.email);
       return response.status(HttpStatus.CREATED).json({
         message: 'User created succesfully',
         newUser,
@@ -37,6 +42,38 @@ export class UserController {
     }
   }
 
+  @Public()
+  @Get('/signin')
+  async signIn(
+    @Res() response,
+    @Query() querry: { email: string; password: string },
+  ) {
+    try {
+      const userData = await this.userService.signIn(
+        querry.email,
+        querry.password,
+      );
+      const courseData = await this.courseService.getCoursesByIds(
+        userData.courses,
+      );
+      const existingUser = {
+        email: userData.email,
+        name: userData.name,
+        surname: userData.surname,
+        _id: userData._id,
+        role: userData.role,
+        courses: courseData,
+      };
+      //jwt somewhere here?
+      return response.status(HttpStatus.OK).json({
+        message: 'Correct data',
+        existingUser,
+      });
+    } catch (error) {
+      return response.status(error.status).json(error.response);
+    }
+  }
+
   @Put('/:id')
   async updateUser(
     @Res() response,
@@ -44,31 +81,21 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     try {
-      const updatedUser = await this.userService.updateUser(
-        userId,
-        updateUserDto,
+      const userData = await this.userService.updateUser(userId, updateUserDto);
+      const courseData = await this.courseService.getCoursesByIds(
+        userData.courses,
       );
+      const updatedUser = {
+        email: userData.email,
+        name: userData.name,
+        surname: userData.surname,
+        _id: userData._id,
+        role: userData.role,
+        courses: courseData,
+      };
       return response.status(HttpStatus.OK).json({
         message: 'User updated succesfully ',
         updatedUser,
-      });
-    } catch (error) {
-      return response.status(error.status).json(error.response);
-    }
-  }
-
-  //remake?
-  @Get()
-  async signIn(
-    @Res() response,
-    @Param('email') email: string,
-    //@Param('password') password: string,
-  ) {
-    try {
-      const existingUser = await this.userService.signIn(email);
-      return response.status(HttpStatus.OK).json({
-        message: 'Correct password',
-        existingUser,
       });
     } catch (error) {
       return response.status(error.status).json(error.response);
@@ -88,17 +115,14 @@ export class UserController {
     }
   }
 
-  @Get('/:course/:role')
-  async getAllCourseUsers(
-    @Res() response,
-    @Param('id') courseId: string,
-    @Param('role') role: Roles,
-  ) {
+  @Get(':uid/courses')
+  async getAllUserCourses(@Res() response, @Param('uid') uid: string) {
     try {
-      const userData = await this.userService.getAllCourseUsers(courseId, role);
+      const coursesIDs = await this.userService.getAllUserCourses(uid);
+      const courseData = await this.courseService.getCoursesByIds(coursesIDs);
       return response.status(HttpStatus.OK).json({
-        message: 'Users data found succesfully',
-        userData,
+        message: 'Courses data found succesfully',
+        courseData,
       });
     } catch (error) {
       return response.status(error.status).json(error.response);

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from '../DTO/create-user.dto';
@@ -6,56 +10,52 @@ import { UpdateUserDto } from '../DTO/update-user.dto';
 import { Roles } from '../Tools/enums';
 import { IUser } from '../Interfaces/user.interface';
 import { HashPassword } from 'src/Tools/utils';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel('User') private userModel: Model<IUser>) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<IUser> {
-    createUserDto = (await HashPassword(createUserDto)) as CreateUserDto;
+    createUserDto.password = await HashPassword(createUserDto.password);
     const newUser = await new this.userModel(createUserDto);
-    newUser.save();
-    return newUser;
 
-    //return newUser;
+    newUser.save();
+    const responseUser = JSON.parse(JSON.stringify(newUser));
+    responseUser.password = undefined;
+    return responseUser;
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<IUser> {
-    if (updateUserDto.password) {
-      //updateUserDto = (await HashPassword(updateUserDto)) as UpdateUserDto;
+    // if (updateUserDto.password) {
+    //   updateUserDto.password = await HashPassword(updateUserDto.password);
+    // }
+
+    let querry = {};
+
+    if (updateUserDto.act === 'join') {
+      querry = { $addToSet: { courses: updateUserDto.CourseId } };
+    } else {
+      querry = { $pull: { courses: updateUserDto.CourseId } };
     }
 
-    let addCoursesArray = {};
-    let deleteCoursesArray = {};
-    if (updateUserDto.addCourses && updateUserDto.addCourses.length != 0) {
-      addCoursesArray = { $addToSet: { courses: updateUserDto.addCourses } };
-    }
-    if (updateUserDto.deleteCourses && updateUserDto.addCourses.length != 0) {
-      deleteCoursesArray = { $pull: { courses: updateUserDto.deleteCourses } };
-    }
-
-    const updatedUser = await this.userModel.findByIdAndUpdate(
-      id,
-      {
-        updateUserDto,
-        addCoursesArray,
-        deleteCoursesArray,
-      },
-      { new: true },
-    );
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, querry, {
+      new: true,
+    });
     if (!updatedUser) {
       throw new NotFoundException(`User "#${id}" not found`);
     }
     return updatedUser;
   }
 
-  async signIn(email: string): Promise<IUser> {
+  async signIn(email: string, password: string): Promise<IUser> {
     const existingUser = await this.userModel.findOne({ email: email });
 
     if (!existingUser) {
       throw new NotFoundException(`User with email "${email}" not found`);
-    }
-    return existingUser;
+    } else if (!bcrypt.compare(password, existingUser.password)) {
+      throw new ForbiddenException('Wrong Password');
+    } else return existingUser;
   }
 
   async getUser(id: string): Promise<IUser> {
@@ -79,7 +79,6 @@ export class UserService {
   async getAllCourseUsers(courseId: string, userRole: Roles): Promise<IUser[]> {
     const studentsData = await this.userModel.find({
       courses: { $in: [courseId] },
-      role: userRole,
     });
 
     if (!studentsData || studentsData.length == 0) {
@@ -88,5 +87,13 @@ export class UserService {
       );
     }
     return studentsData;
+  }
+
+  async getAllUserCourses(userid: string): Promise<string[]> {
+    const coursesData = await this.userModel.findById(userid);
+    if (!coursesData) {
+      throw new NotFoundException(`User "#${userid}" not found`);
+    }
+    return coursesData.courses;
   }
 }

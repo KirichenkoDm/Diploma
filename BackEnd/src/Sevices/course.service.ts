@@ -13,7 +13,8 @@ export class CourseService {
 
   async createCourse(createCouseDto: CreateCourseDto): Promise<ICourse> {
     const newCourse = await new this.courseModel(createCouseDto);
-    return newCourse.save();
+    newCourse.save();
+    return newCourse;
   }
 
   async updateCourse(
@@ -42,16 +43,30 @@ export class CourseService {
 
   async getCoursesByQuery(
     agregateObject: AgregateCourseObject,
-  ): Promise<ICourse[]> {
-    const query = MakeQuerryAgregateCourse(agregateObject);
+  ): Promise<{ courseData: ICourse[]; nextPagePossible: boolean }> {
+    const query = await MakeQuerryAgregateCourse(agregateObject);
     const courseData = await this.courseModel
       .find(query)
       .sort({ $natural: -1 })
-      .skip(agregateObject.page * 10)
-      .limit(10);
-
+      .skip((agregateObject.page - 1) * 3)
+      .limit(3);
+    const nextPage = await this.courseModel
+      .find(query)
+      .sort({ $natural: -1 })
+      .skip(agregateObject.page * 3)
+      .limit(3);
+    const nextPagePossible: boolean =
+      nextPage !== undefined && nextPage.length !== 0;
     if (!courseData || courseData.length == 0) {
       throw new NotFoundException('Courses which matches query not found');
+    }
+    return { courseData, nextPagePossible };
+  }
+
+  async getCoursesByIds(ids: string[]): Promise<ICourse[]> {
+    const courseData = await this.courseModel.find({ _id: { $in: ids } });
+    if (!courseData) {
+      throw new NotFoundException('Courses with ids not found');
     }
     return courseData;
   }

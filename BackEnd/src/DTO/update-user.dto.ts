@@ -4,7 +4,7 @@ import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsNotEmpty()
-  addCourses: Array<string>;
+  CourseId: string;
   @IsNotEmpty()
-  deleteCourses: Array<string>;
+  act: string;
 }

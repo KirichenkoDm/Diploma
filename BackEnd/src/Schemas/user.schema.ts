@@ -20,12 +20,6 @@ export class user {
   @Prop({
     type: String,
     required: true,
-  })
-  salt: string;
-
-  @Prop({
-    type: String,
-    required: true,
     maxLength: 30,
   })
   name: string;
